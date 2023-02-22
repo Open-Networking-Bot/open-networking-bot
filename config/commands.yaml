@@ -1,0 +1,434 @@
+# Only Shadow Developers should modify this file.
+
+commands:
+  # System Commands
+  - name: ping
+    id: PING
+    desc: Tests if the bot is online.
+    args: null
+    access_level: null
+
+  - name: killit
+    id: KILLIT
+    desc: Shuts down the bot instantly. Should only be used in emergencies.
+    args: null
+    access_level: 16
+
+  - name: restart
+    id: RESTART
+    desc: Restarts the bot, applying any updates added to it.
+    args: null
+    access_level: 16
+
+  - name: catchup
+    id: CATCHUP
+    desc: Adds all data added since the bot was shut down to the database.
+    args: null
+    access_level: 16
+
+  # Misc Commands
+  - name: purge
+    id: PURGE
+    desc: Purges support, express and raid attendance entries from the database, past 4 weeks.
+    args: null
+    access_level: 16
+
+  - name: progress
+    id: PROGRESS
+    desc: Shows the support a member has done in the last week.
+    args: null
+    access_level: null
+
+  - name: livemembers
+    id: LIVEUSERS
+    desc: Shows who is currently live.
+    args: null
+    access_level: 16
+  
+  - name: help
+    id: HELP
+    desc: Shows what a command does or what commands are in a category.
+    args:
+      -
+        name: lookup
+        desc: The command or command category to look up.
+        type: STRING
+        required: false
+    access_level: null
+  
+  - name: link
+    id: LINK
+    desc: Connects your Twitch account to the SSS's database.
+    args:
+      -
+        name: twitch_username
+        desc: Your Twitch username.
+        type: STRING
+    access_level: null
+
+command_categories:
+  - name: raid
+    id: RAID
+    desc: Handles anything relating to Raid Trains.
+    access_level: 1
+    commands:
+      - name: list
+        id: LIST
+        desc: Lists out the live members who are eligible to be raided.
+        args: null
+        access_level: 1
+
+      - name: attendance
+        id: ATTENDANCE
+        desc: Adds raid attendance to every person in the raid voice channel.
+        args:
+          - 
+            name: exclusions
+            type: STRING
+            desc: The Discord IDs of members who you do not want to be counted in the raid.
+            required: false
+        access_level: 1
+        
+      - name: add
+        id: ADD
+        desc: Manually adds someone to raid attendance.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+        access_level: 1
+
+      - name: award
+        id: AWARD
+        desc: Changes the number of points given to someone for their most recent raid.
+        args:
+          -
+            name: points_to_award
+            desc: The number of points to award them for the raid.
+            type: NUMBER
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+        access_level: 1
+
+      - name: remove
+        id: REMOVE
+        desc: Removes a members' last raid attendance.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+        access_level: 1
+
+      - name: goto
+        id: GOTO
+        desc: Goes to a streamer, in a raid train.
+        args:
+          -
+            name: twitch_username
+            desc: The member's Twitch username
+            type: STRING
+        access_level: 1
+        
+      - name: history
+        id: HISTORY
+        desc: Find out when a member last went on a raid or when someone was last raided.
+        args:
+          -
+            name: history_type
+            desc: The word `attendance` or `raided`
+            type: STRING
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+        access_level: 1
+
+      - name: message
+        id: MESSAGE
+        desc: Create a raid announcement message in raid-info
+        args:
+          -
+            name: raid_name 
+            desc: The raid being participated in.
+            type: STRING
+        access_level: 1
+
+
+  - name: week
+    id: WEEK
+    desc: Handles commands relating to moderation and the number of points accumulated over 7 days.
+    access_level: 28
+    commands:
+      - name: review
+        id: REVIEW
+        desc: Shows the points accumulated over 7 days.
+        args: null
+        access_level: 12
+
+      - name: express
+        id: EXPRESS
+        desc: Shows the points accumulated over 4 days.
+        args: null
+        access_level: 12
+
+      - name: month
+        id: MONTH
+        desc: Shows the points accumulated over the 30 days.
+        args: null
+        access_level: 12
+
+      - name: custom
+        id: CUSTOM
+        desc: Shows the points accumulated over a custom amount of weeks.
+        args:
+          -
+            name: report_length
+            desc: The number of weeks to show in the report.
+            type: NUMBER
+        access_level: 12
+
+      - name: end
+        id: END
+        desc: Shows the points accumulated over the 7 days, applying stages.
+        args: null
+        access_level: 12
+      
+      - name: stage
+        id: STAGE
+        desc: Modifies a member's stage.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          - 
+            name: new_stage
+            desc: The stage to set the member to.
+            type: INTEGER
+          
+        access_level: 16
+
+
+  - name: user
+    id: USER
+    desc: Handles commands relating to the adding, removing and modification of users in the database.
+    access_level: 2
+    commands:
+      - name: init
+        id: INIT
+        desc: Connects the member's Twitch account to the database.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          -
+            name: twitch_username
+            desc: The member's Twitch username
+            type: STRING
+      
+        access_level: 2
+
+      - name: add
+        id: ADD
+        desc: Adds a member to the database.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          -
+            name: twitch_username
+            desc: The member's Twitch username
+            type: STRING
+        access_level: 2
+
+      - name: remove
+        id: REMOVE
+        desc: Removes a member from the database.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the ex-member
+            type: STRING
+        access_level: 2
+
+      - name: comment
+        id: COMMENT
+        desc: Add a comment on a members's week review.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          -
+            name: comment
+            desc: The comment to put in
+            type: STRING
+        
+        access_level: 16
+
+
+  - name: express
+    id: EXPRESS
+    desc: Handles commands related to the Express.
+    access_level: 8
+    commands:
+      - name: lock
+        id: LOCK
+        desc: Toggles if Express Support tags will no longer count if deleted.
+        args: null
+        access_level: 8
+      
+      - name: lockrequests
+        id: LOCKREQUESTS
+        desc: Toggles if the bot will look in Request A Slot.
+        args: null
+        access_level: 8
+
+      - name: new
+        id: NEW
+        desc: Starts a new express in the database, allowing people to sign up for the express.
+        args: null
+        access_level: 8
+
+      - name: add
+        id: ADD
+        desc: Adds a new express booking for a slot into the database.
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          -
+            name: slot
+            desc: The slot requested
+            type: INTEGER
+          -
+            name: force
+            desc: If the member would not usually be allowed to go on the express, type "force" as the third argument.
+            type: STRING
+            required: false
+          
+        access_level: 8
+
+      - name: delete
+        id: DELETE
+        desc: Deletes a taken slot from the Express roster.
+        args:
+          -
+            name: slot
+            desc: The slot's number
+            type: INTEGER
+        access_level: 8
+
+      - name: priorities
+        id: PRIORITIES
+        desc: Outputs a CSV file, containing who is 1st and 2nd priority
+        args: null
+        access_level: 8
+
+      - name: timetable
+        id: TIMETABLE
+        desc: Outputs a CSV file, containing the current roster for the Express.
+        args: null
+        access_level: 8
+
+
+  - name: tag
+    id: TAG
+    desc: Handles the manual addition of tags.
+    access_level: 48
+    commands:
+      - name: support
+        id: SUPPORT
+        desc: Adds support tags for a member
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          - 
+            name: tag_modification
+            desc: The number of tags to add/remove (make the number negative to remove tags)
+            type: NUMBER
+        access_level: 16
+
+      - name: express
+        id: EXPRESS
+        desc: Adds express tags for a member
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          - 
+            name: tag_modification
+            desc: The number of tags to add/remove (make the number negative to remove tags)
+            type: NUMBER
+        access_level: 16
+
+      - name: shoutout
+        id: SHOUTOUT
+        desc: Adds shoutout tags for a member
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+          - 
+            name: tag_modification
+            desc: The number of tags to add/remove (make the number negative to remove tags)
+            type: NUMBER
+        access_level: 48
+
+
+  - name: dev
+    id: DEV
+    desc: Handles queries, to help debug the bot.
+    access_level: 16
+    commands:
+      - name: table
+        id: TABLE
+        desc: Gives a table in the database.
+        args:
+          -
+            name: table
+            desc: The table to fetch
+            type: STRING
+          
+        access_level: 16
+
+      - name: crossref
+        id: CROSSREF
+        desc: Shows who is and isn't in the database/server
+        access_level: 16
+        args: null
+
+  - name: onleave
+    id: ONLEAVE
+    desc: Contains the manual overrides for the On Leave system.
+    access_level: 20
+    commands:
+      - name: forgive
+        id: FORGIVE
+        desc: Makes the bot forget that a member was On Leave
+        access_level: 20
+        args:
+          - 
+            name: member
+            desc: The Discord ID of the member
+            type: USER
+
+      - name: revoke
+        id: REVOKE
+        desc: Revokes On Leave from all members that have been On Leave for longer than a month.
+        access_level: 20
+        args: null
+
+# commands: {name, desc, args : string[] | null}
+# command_categories: {name, desc, commands: {name, desc, args : string[] | null}}

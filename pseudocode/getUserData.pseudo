@@ -1,0 +1,73 @@
+FUNCTION min(option_1, option_2)
+    IF option_1 > option_2
+        RETURN option_2
+    ELSE
+        RETURN option_1
+
+FUNCTION get_user_data(member, all_raids_participated_in, all_member_support_entries, is_being_activity_checked, number_of_weeks_to_consider)
+    warnings = member.number_of_warnings
+    
+    user_raid_points_over_time_period = the amount of points the member got inside of the number_of_weeks_to_consider
+    user_raid_points_over_week = the amount of points the member got inside of the last 7 days
+
+    number_of_supported_overall = 0
+    number_of_express_in_last_week = 0
+    number_of_support_in_last_week = 0
+
+    current_tag_total = [] // {day, tags}
+    FOREACH entry IN all_member_support_entries
+        changed = false
+        FOREACH total_entry IN current_tag_total
+            IF the day ±1 equals total_entry.day
+                total_entry.tags += entry.express_support
+                changed = true
+        IF NOT changed
+            current_tag_total += {entry.date, entry.express_support}
+        
+        number_of_supported_overall += entry.who_i_supported
+        IF entry.date is inside the last week
+            number_of_express_in_last_week += entry.express_support
+            number_of_support_in_last_week += entry.who_i_supported
+    
+    number_of_express = 0
+    FOREACH total_entry IN current_tag_total
+        IF the clamp type == "review"
+            points_to_add_option = maximum express points / points gained each express tag
+            number_of_express += min(total_entry.tags, points_to_add_option)
+        ELSE
+            number_of_express += total_entry.tags
+
+    IF the clamp type == "review"
+        points_to_add_option = maximum express points / points gained each express tag
+        number_of_express += min(number_of_express_in_last_week, points_to_add_option)
+    ELSE
+        number_of_express += number_of_express_in_last_week
+
+    total_points_over_all_weeks = totalPointsCalculator(user_raid_points_over_time_period, number_of_supported_overall, number_of_express)
+    total_points_in_week = totalPointsCalculator(user_raid_points_over_week, number_of_support_in_last_week, number_of_express_in_last_week)
+
+    failed_week = total_points_in_week / number_of_weeks_to_consider >= minimum points required inside of a week
+        OR total_points_in_week >= minimum points required inside of a week
+    
+    IF is_being_activity_checked
+        IF failed_week
+            warnings += 1
+        ELSE
+            warnings = 0
+    
+    express_eligible = total_points_in_week >= minimum points required to be part of the express
+        AND number_of_express >= numer of express tags to be part of the express
+
+    RETURN [
+        member.name,
+        member.discord_id,
+        member.url,
+        user_raid_points_over_week,
+        number_of_express_in_last_week,
+        number_of_support_in_last_week,
+        total_points_in_week,
+        total_points_over_all_weeks / point average weeks taken,
+        warnings,
+        express_eligible,
+        is_being_activity_checked
+    ]

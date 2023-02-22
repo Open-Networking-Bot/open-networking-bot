@@ -1,0 +1,31 @@
+{
+  "name": "open-networking-bot",
+  "version": "1.0.0",
+  "description": "Manage points, create events and visit Twitch Streamers through the ONB system.",
+  "main": "app.js",
+  "scripts": {
+    "test": "Hello World!",
+    "start": "tsc && node .",
+    "db_init": "tsc && node . first_time_setup",
+    "no_nbr": "tsc && node . been_raided_records",
+    "command_init": "node . slashcommand_setup",
+    "init": "npm run db_init && npm run command_init"
+  },
+  "author": "Lewis Page",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "^4.2.1",
+    "discord.js": "^13.3.1",
+    "dotenv": "^10.0.0",
+    "typescript": "^4.5.2",
+    "validator": "^13.7.0",
+    "yaml": "^1.10.2"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^8.2.0",
+    "@types/node": "^16.11.12",
+    "@types/validator": "^13.7.0",
+    "@types/yaml": "^1.9.7",
+    "prisma": "^4.2.1"
+  }
+}

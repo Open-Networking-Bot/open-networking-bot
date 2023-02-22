@@ -1,0 +1,18 @@
+export default interface StandardDataFormat {
+    discordUsername: string,
+    discordID: string,
+    twitchUsername: string | null,
+    raids: number,
+    numberOfExpressTags: number,
+    numberOfSupportedTags: number,
+    numberOfShoutoutTags: number,
+    numberOfInviteTags: number,
+    totalPointsClamped: number,
+    totalPoints: number,
+    averagePoints: number,
+    numberOfWarnings: number,
+    eligibleForExpress: boolean,
+    isNotOnLeave: boolean,
+    lastMessage: string,
+    comments: string,
+}

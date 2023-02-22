@@ -1,0 +1,70 @@
+FUNCTION new_express(message, content)
+    IF NOT message.author is express authorized
+        OUTPUT an error message
+        RETURN
+    expressTimetable.delete_all()
+    expressConfig.get_first().latestDate = the current date
+    OUTPUT a success message
+
+FUNCTION add_to_express_schedule_manual(message, content)
+    IF NOT message.author is express authorized
+        OUTPUT an error message
+        RETURN
+    IF content.length < 4
+        OUTPUT an error message
+        RETURN
+    
+    user = member.get_by_discord_id(get_discord_id(content[2]))
+    slot = int(content[3])
+
+    IF NOT user exists
+        OUTPUT an error message
+        RETURN
+
+    IF slot > latest_slot
+        OUTPUT an error message
+        RETURN
+    
+    curent_timetable = expressTimetable.get_all()
+
+    IF ((expressConfig.get_first().latestDate > yesterday AND user.latest_express_date > today minus a week) 
+        OR NOT user.express_eligible) AND content.length == 4 OR NOT content[4] == "force"
+        OUTPUT an error message
+        RETURN
+
+    FOREACH booking IN curent_timetable
+        IF slot == booking.slot
+            IF content.length == 4 OR NOT content[4] == "force"
+                OUTPUT an error message
+                RETURN
+
+    expressTimetable.create_or_update(user.id, slot)
+    user.latest_express_date = the current date
+
+    OUTPUT a success message
+
+FUNCTION add_to_express_schedule_automatic(message)
+    slot = int(message.content)
+    IF is_nan(slot)
+        RETURN
+    IF slot > latest_slot
+        OUTPUT ❓ emoji
+        RETURN
+        curent_timetable = expressTimetable.get_all()
+
+    user = member.get_by_discord_id(message.author.id)
+    
+    IF (expressConfig.get_first().latestDate > yesterday AND user.latest_express_date > today minus a week) 
+        OR NOT user.express_eligible
+        OUTPUT ❌ emoji
+        RETURN
+
+    FOREACH booking IN curent_timetable
+        IF slot == booking.slot
+            OUTPUT ❌ emoji
+            RETURN
+    
+    expressTimetable.create(user.id, slot)
+    user.latest_express_date = the current date
+
+    OUTPUT ✅ emoji

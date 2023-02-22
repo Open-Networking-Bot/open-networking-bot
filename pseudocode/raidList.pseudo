@@ -1,0 +1,93 @@
+FUNCTION format_who_to_raid(members, tag)
+    out <= ""
+    FOR member IN members
+        out <= out + "- " + sanitise_markdown(member.name) + " (<" + sanitise_markdown(member.url) + ">) [" + tag + "]\n"
+    RETURN out
+
+FUNCTION can_be_raided_weekly(discord_member, raid_train_history)
+    has_opted_out <= discord_member.roles.contains(a raid train exclusion role)
+    last_raid_train_not_too_early <= raid_train_history == Null OR raid_train_history.last_date < the current time - week - hour
+    is_over_level_10 <= discord_member.roles.contains(the level 10 role)
+
+    RETURN NOT has_opted_out AND last_raid_train_not_too_early AND is_over_level_10
+
+FUNCTION find_member_raid_train_eligiblity(discord_member, database_member, raid_train_history)
+    has_no_warnings <= database_member.number_of_warnings <= 0
+    has_opted_out <= discord_member.roles.contains(a raid train exclusion role)
+
+    last_raid_train_not_too_early <= raid_train_history == Null OR raid_train_history.last_date < the current time - day - hour
+    is_excluded_from_time_checks <= discord_member.roles.contains(a raid junkie role)
+
+    RETURN has_no_warnings AND NOT has_opted_out AND (last_raid_train_not_too_early OR is_excluded_from_time_checks)
+
+FUNCTION get_all_live_members()
+    live_channel_posts <= get_all_live_channel_posts()
+    mapped_live_channel_posts <= live_channel_posts.map(ƛp.(p.member))
+    
+    all_members <= discord.get_all_members()
+    members_streaming <= all_members.filter(ƛm.(m.is_streaming() == True))
+
+    filtered_members <= []
+    FOR member IN (mapped_live_channel_posts + members_streaming)
+        IF NOT filtered_members.contains(member)
+            filtered_members <= filtered_members + member
+    
+    RETURN filtered_members
+
+PROCEDURE raid_list()
+    message <= INPUT
+    
+    // Authentication is built in, Ignore.
+    IF NOT message.member has the roles to authenticate
+        validation error => OUTPUT
+        RETURN
+    
+    discord_members <= get_all_live_members()
+    database_members <= database.members.select(discord_members)
+    raid_train_histories <= database.raid_history.select(discord_members.map(ƛm.(m.id)))
+
+    nbr_to_raid <= []
+    long_time_to_raid <= []
+    standard_to_raid <= []
+    weekly_to_raid <= []
+    featured_to_raid <= []
+
+    FOR member IN discord_members
+
+        IF member.roles.contains(an activity check preventing role)
+            CONTINUE-
+
+        database_records <= database_members.filter(ƛm.(m.id == member.id))
+        IF database_records.length <= 0
+            CONTINUE
+        database_record <= database_records[0]
+        
+        raid_train_history_records <= raid_train_histories.filter(ƛr.(r.members_id ==  database_record.id))
+        raid_train_history_record <= Null
+        IF raid_train_history_records.length <= 0
+            raid_train_history_record <= raid_train_history_records[0]
+        
+        IF raid_train_history_record == Null
+            nbr_to_raid <= nbr_to_raid + database_record
+            CONTINUE
+        
+        IF find_member_raid_train_eligiblity(member, database_record, raid_train_history_record) == True
+            IF raid_train_history_record.last_raid < today - week
+                long_time_to_raid <= long_time_to_raid + database_record
+            ELSE IF member.roles.contains(a raid junkie role)
+                featured_to_raid <= featured_to_raid + database_record
+            ELSE
+                standard_to_raid <= standard_to_raid + database_record
+            CONTINUE
+        
+        IF can_be_raided_weekly(member, raid_train_history_record)
+            weekly_to_raid <= weekly_to_raid + database_record
+    
+    out <= format_who_to_raid(nbr_to_raid, "NBR")
+    out <= out + format_who_to_raid(long_time_to_raid, "Long time since raided")
+    out <= out + format_who_to_raid(standard_to_raid, "Standard")
+    out <= out + format_who_to_raid(weekly_to_raid, "Weekly")
+    out <= out + format_who_to_raid(featured_to_raid, "Featured Member")
+
+    out => OUTPUT
+    
