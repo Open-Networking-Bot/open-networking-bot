@@ -1,6 +1,6 @@
 import {getTodaysSupportEntry, collectXDaysOfSupportEntries} from "./supportQueries";
 import database from "../../functions/core/database";
-import { Lock } from "./expressLock"
+import { Lock } from "./calendarLock"
 import { members } from "@prisma/client";
 import config from "../../functions/models/config";
 import { recordHandle } from "./supportUpdating";

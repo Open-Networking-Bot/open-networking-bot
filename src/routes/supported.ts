@@ -1,10 +1,10 @@
 import {Message, PartialMessage} from "discord.js";
 import * as whoISupported from "../controllers/supported/whoISupported";
-import * as expressSupport from "../controllers/supported/expressSupport";
+import * as expressSupport from "../controllers/supported/calendarSupport";
 import * as shoutOutSupport from "../controllers/supported/shoutOutSupport"
 import config from "../functions/models/config";
 import {add} from "../functions/features/currentlyLive";
-import addToExpressAutomatic from "../controllers/express/addToExpressAutomatic";
+import addToExpressAutomatic from "../controllers/calendar/addToCalendarAutomatic";
 import {New, Updated} from "../controllers/supported/supportUpdating"
 import * as inviteSupport from "../controllers/supported/inviteSupport"
 

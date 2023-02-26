@@ -29,7 +29,7 @@ commands:
   # Misc Commands
   - name: purge
     id: PURGE
-    desc: Purges support, express and raid attendance entries from the database, past 4 weeks.
+    desc: Purges support, calendar and raid attendance entries from the database, past 4 weeks.
     args: null
     access_level: 16
 
@@ -169,12 +169,6 @@ command_categories:
         args: null
         access_level: 12
 
-      - name: express
-        id: EXPRESS
-        desc: Shows the points accumulated over 4 days.
-        args: null
-        access_level: 12
-
       - name: month
         id: MONTH
         desc: Shows the points accumulated over the 30 days.
@@ -273,14 +267,14 @@ command_categories:
         access_level: 16
 
 
-  - name: express
-    id: EXPRESS
-    desc: Handles commands related to the Express.
+  - name: calendar
+    id: CALENDAR
+    desc: Handles commands related to the Calendar.
     access_level: 8
     commands:
       - name: lock
         id: LOCK
-        desc: Toggles if Express Support tags will no longer count if deleted.
+        desc: Toggles if Calendar Support tags will no longer count if deleted.
         args: null
         access_level: 8
       
@@ -292,13 +286,13 @@ command_categories:
 
       - name: new
         id: NEW
-        desc: Starts a new express in the database, allowing people to sign up for the express.
+        desc: Starts a new calendar in the database, allowing people to sign up for the calendar.
         args: null
         access_level: 8
 
       - name: add
         id: ADD
-        desc: Adds a new express booking for a slot into the database.
+        desc: Adds a new calendar booking for a slot into the database.
         args:
           - 
             name: member
@@ -310,7 +304,7 @@ command_categories:
             type: INTEGER
           -
             name: force
-            desc: If the member would not usually be allowed to go on the express, type "force" as the third argument.
+            desc: If the member would not usually be allowed to go on the calendar, type "force" as the third argument.
             type: STRING
             required: false
           
@@ -318,7 +312,7 @@ command_categories:
 
       - name: delete
         id: DELETE
-        desc: Deletes a taken slot from the Express roster.
+        desc: Deletes a taken slot from the Calendar roster.
         args:
           -
             name: slot
@@ -334,7 +328,7 @@ command_categories:
 
       - name: timetable
         id: TIMETABLE
-        desc: Outputs a CSV file, containing the current roster for the Express.
+        desc: Outputs a CSV file, containing the current roster for the Calendar.
         args: null
         access_level: 8
 
@@ -358,9 +352,9 @@ command_categories:
             type: NUMBER
         access_level: 16
 
-      - name: express
-        id: EXPRESS
-        desc: Adds express tags for a member
+      - name: calendar
+        id: CALENDAR
+        desc: Adds calendar tags for a member
         args:
           - 
             name: member

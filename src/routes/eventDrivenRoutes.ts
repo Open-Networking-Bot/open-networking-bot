@@ -6,7 +6,7 @@ import {remove} from "../functions/features/currentlyLive";
 import {Message} from "discord.js";
 import config from "../functions/models/config";
 import onLeaveHandler from "./onLeaveHandler";
-import * as expressSupport from "../controllers/supported/expressSupport"
+import * as calendarSupport from "../controllers/supported/calendarSupport"
 import * as whoISupported from "../controllers/supported/whoISupported"
 import * as shoutOutSupport from "../controllers/supported/shoutOutSupport"
 import {Deleted as supportDeleted} from "../controllers/supported/supportUpdating"
@@ -29,7 +29,7 @@ client.on("messageUpdate", protectCommand(Update))
 client.on("messageDelete", protectCommand(message => {
     if(config.raid_message_channels.some(msg => msg === message.channelId)) return remove(message as Message);
     switch(message.channel.id){
-        case config.express_support_channel: return supportDeleted(message, expressSupport.handleSubtraction);
+        case config.express_support_channel: return supportDeleted(message, calendarSupport.handleSubtraction);
         case config.who_i_supported_channel: return supportDeleted(message, whoISupported.handleSubtraction, whoISupported.specialTagCalculation);
         case config.shout_out_support_channel: return supportDeleted(message, shoutOutSupport.handleSubtraction)
         case config.who_invited_me_channel: return Deleted(message)

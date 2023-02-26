@@ -5,7 +5,7 @@ import config from "../../functions/models/config";
 import database from "../../functions/core/database";
 import client from "../../functions/core/serverInit";
 import { logMessage, logType } from "../logging/loggingManager";
-import { Clamp } from "./expressSupport";
+import { Clamp } from "./calendarSupport";
 import { getTodaysSupportEntry } from "./supportQueries";
 import { specialTagCalculation } from "./whoISupported";
 import parseSeveralMentionedUsers from "../../functions/validation/parseSeveralMentionedUsers";

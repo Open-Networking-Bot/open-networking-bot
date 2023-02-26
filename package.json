@@ -2,13 +2,13 @@
   "name": "open-networking-bot",
   "version": "1.0.0",
   "description": "Manage points, create events and visit Twitch Streamers through the ONB system.",
-  "main": "app.js",
+  "main": "dist/app.js",
   "scripts": {
     "test": "Hello World!",
-    "start": "tsc && node .",
-    "db_init": "tsc && node . first_time_setup",
-    "no_nbr": "tsc && node . been_raided_records",
-    "command_init": "node . slashcommand_setup",
+    "start": "tsc && node dist/app.js",
+    "db_init": "tsc && node dist/app.js first_time_setup",
+    "no_nbr": "tsc && node dist/app.js been_raided_records",
+    "command_init": "node dist/app.js slashcommand_setup",
     "init": "npm run db_init && npm run command_init"
   },
   "author": "Lewis Page",

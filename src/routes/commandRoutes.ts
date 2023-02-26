@@ -1,11 +1,11 @@
 import { Message } from "discord.js";
 import changeComment from "../controllers/comments/changeComment";
-import addToExpress from "../controllers/express/addToExpress";
-import expressDelete from "../controllers/express/expressDelete";
-import expressTimetable from "../controllers/express/expressTimetable";
-import lockRequests from "../controllers/express/lockRequests";
-import newExpress from "../controllers/express/newExpress";
-import priorities from "../controllers/express/priorities";
+import addToCalendar from "../controllers/calendar/addToCalendar";
+import calendarDelete from "../controllers/calendar/calendarDelete";
+import expressTimetable from "../controllers/calendar/calendarTimetable";
+import lockRequests from "../controllers/calendar/lockRequests";
+import newCalendar from "../controllers/calendar/newCalendar";
+import priorities from "../controllers/calendar/priorities";
 import help from "../controllers/help/help";
 import { memberInit, memberLink, newMemberManual } from "../controllers/initiation/joined";
 import { leaveManual } from "../controllers/initiation/left";
@@ -23,7 +23,7 @@ import raidList from "../controllers/raids/list";
 import message from "../controllers/raids/message";
 import remove from "../controllers/raids/remove";
 import catchup from "../controllers/supported/catchup";
-import expressLock from "../controllers/supported/expressLock";
+import calendarLock from "../controllers/supported/calendarLock";
 import manualAddition from "../controllers/supported/manualAddition";
 import endWeek from "../controllers/weekEnd/endWeek";
 import stages from "../controllers/weekEnd/stages";
@@ -39,7 +39,7 @@ import requireContentLengthOf from "../functions/validation/requireContentLength
 import { callback, legacyCallback } from "./models/commandCallbackTypes";
 import CommandController from "./models/CommandController";
 import * as whoISupported from "../controllers/supported/whoISupported"
-import * as expressSupport from "../controllers/supported/expressSupport"
+import * as calendarSupport from "../controllers/supported/calendarSupport"
 import * as shoutOutSupport from "../controllers/supported/shoutOutSupport"
 import table from "../controllers/dev/table";
 import crossref from "../controllers/dev/crossref";
@@ -88,9 +88,6 @@ const WEEK_LEGACY_COMMANDS = [
     new CommandController("WEEK_MONTH", new Monad<callback, legacyCallback>(undefined, 
         curry(endWeek) (weekReview) ({dateToStartFrom: new Date(), weeksToConsider: 4.28571429}) (()=>false) )),
 
-    new CommandController("WEEK_EXPRESS", new Monad<callback, legacyCallback>(undefined, 
-        curry(endWeek) (weekReview) ({dateToStartFrom: new Date(new Date().getTime() + (DAY * 3)), weeksToConsider: 1}) (()=>false) )),
-    
     new CommandController("WEEK_CUSTOM", new Monad<callback, legacyCallback>(undefined, weekCustom)),
     new CommandController("WEEK_STAGE", new Monad<callback, legacyCallback>(undefined, stages)),
 ]
@@ -102,14 +99,14 @@ const USER_LEGACY_COMMANDS = [
     new CommandController("USER_COMMENT", new Monad<callback, legacyCallback>(undefined, changeComment)),
 ]
 
-const EXPRESS_LEGACY_COMMANDS = [
-    new CommandController("EXPRESS_LOCK", new Monad<callback, legacyCallback>(undefined, expressLock)),
-    new CommandController("EXPRESS_LOCKREQUESTS", new Monad<callback, legacyCallback>(undefined, lockRequests)),
-    new CommandController("EXPRESS_NEW", new Monad<callback, legacyCallback>(undefined, newExpress)),
-    new CommandController("EXPRESS_ADD", new Monad<callback, legacyCallback>(undefined, addToExpress)),
-    new CommandController("EXPRESS_DELETE", new Monad<callback, legacyCallback>(undefined, expressDelete)),
-    new CommandController("EXPRESS_PRIORITIES", new Monad<callback, legacyCallback>(undefined, priorities)),
-    new CommandController("EXPRESS_TIMETABLE", new Monad<callback, legacyCallback>(undefined, expressTimetable)),
+const CALENDAR_LEGACY_COMMANDS = [
+    new CommandController("CALENDAR_LOCK", new Monad<callback, legacyCallback>(undefined, calendarLock)),
+    new CommandController("CALENDAR_LOCKREQUESTS", new Monad<callback, legacyCallback>(undefined, lockRequests)),
+    new CommandController("CALENDAR_NEW", new Monad<callback, legacyCallback>(undefined, newCalendar)),
+    new CommandController("CALENDAR_ADD", new Monad<callback, legacyCallback>(undefined, addToCalendar)),
+    new CommandController("CALENDAR_DELETE", new Monad<callback, legacyCallback>(undefined, calendarDelete)),
+    new CommandController("CALENDAR_PRIORITIES", new Monad<callback, legacyCallback>(undefined, priorities)),
+    new CommandController("CALENDAR_TIMETABLE", new Monad<callback, legacyCallback>(undefined, expressTimetable)),
 
 ]
 
@@ -117,8 +114,8 @@ const TAG_LEGACY_COMMANDS = [
     new CommandController("TAG_SUPPORT", new Monad<callback, legacyCallback>(undefined, 
         curry(manualAddition) (whoISupported.handleAddition))),
 
-    new CommandController("TAG_EXPRESS", new Monad<callback, legacyCallback>(undefined, 
-        curry(manualAddition) (expressSupport.handleAddition))),
+    new CommandController("TAG_CALENDAR", new Monad<callback, legacyCallback>(undefined, 
+        curry(manualAddition) (calendarSupport.handleAddition))),
 
     new CommandController("TAG_SHOUTOUT", new Monad<callback, legacyCallback>(undefined, 
         curry(manualAddition) (shoutOutSupport.handleAddition))),
@@ -140,7 +137,7 @@ export default [
     ...RAID_LEGACY_COMMANDS,
     ...WEEK_LEGACY_COMMANDS,
     ...USER_LEGACY_COMMANDS,
-    ...EXPRESS_LEGACY_COMMANDS,
+    ...CALENDAR_LEGACY_COMMANDS,
     ...TAG_LEGACY_COMMANDS,
     ...DEV_LEGACY_COMMANDS,
     ...ONLEAVE_LEGACY_COMMANDS,
