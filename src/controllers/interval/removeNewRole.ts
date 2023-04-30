@@ -4,6 +4,12 @@ import { REMOVE_NEW_ROLE } from "../../functions/core/intervalNames";
 import { DAY, WEEK } from "../../functions/core/magicNumbers";
 import client from "../../functions/core/serverInit";
 
+/**
+ * @namespace
+ * @author Lewis Page
+ * @name Remove_New_Role
+ * @description Removes the New Member role for members who have been in the server for over 2 weeks.
+ */
 export default {
     name: REMOVE_NEW_ROLE,
     interval: setInterval(async ()=>{

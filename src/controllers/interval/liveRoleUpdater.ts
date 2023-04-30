@@ -4,6 +4,10 @@ import { NOW_LIVE_ROLE_UPDATER } from "../../functions/core/intervalNames";
 import { MINUTE, WEEK } from "../../functions/core/magicNumbers";
 import client from "../../functions/core/serverInit";
 
+/**
+ * @author Lewis Page
+ * @description Automatically applies Now Live or Super Featured Live to anyone who meets the criteria.
+ */
 async function updateRoles(){
     const guild = await client.guilds.fetch(config.server_id)
     const members = guild.members.cache.map(i => i)
@@ -22,7 +26,7 @@ async function updateRoles(){
             for(let i of member.roles.cache){
                 const role = i[1].id
                 if(!hasLiveRole) hasLiveRole = role === config.now_live_role
-                if(!hasEligiblityRole) hasEligiblityRole = role === config.now_live_eligibility_role || !!config.raid_junkie_roles.find(x => role === x)
+                if(!hasEligiblityRole) hasEligiblityRole = role === config.now_live_eligibility_role || !!config.priority_event_roles.find(x => role === x)
                 if(!hasSupportBan) hasSupportBan = !!config.now_live_banned_roles.find(x => role === x)
             }
 
@@ -40,6 +44,12 @@ async function updateRoles(){
     await Promise.resolve(todo)
 }
 
+/**
+ * @namespace
+ * @author Lewis Page
+ * @name Live_Role_Updater
+ * @description Contains the information about adding roles when a member goes live.
+ */
 export default {
     name: NOW_LIVE_ROLE_UPDATER,
     interval: setInterval(updateRoles, MINUTE * 5)

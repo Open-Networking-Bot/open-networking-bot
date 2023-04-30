@@ -1,7 +1,13 @@
 import {Message, MessagePayload} from "discord.js";
 import config from "../../functions/models/config";
 
-export default async function (message : Message){
+/**
+ * @author Lewis Page
+ * @description Sends an informative message to the end-user, when the `$ping` command is invoked.
+ * @param message the Discord Message, sent.
+ * @returns a Message Reply Promise.
+ */
+export default async function pingController(message : Message){
     const sendingMessage = `
     🕜 Uptime: ${process.uptime()}
   🤖 Version: ${config.bot_version}

@@ -3,14 +3,19 @@ import database from "../../functions/core/database";
 import client from "../../functions/core/serverInit";
 import { logMessage, logType } from "../logging/loggingManager";
 
-export default async function() {
+/**
+ * @author Lewis Page
+ * @description When the server is first started, each member will be added to the database. This function does that.
+ */
+export default async function newServer() {
     const members = (await client.guilds.fetch(config.server_id)).members
     
     await database.$transaction(members.cache.filter(member => !member.user.bot).map(member => database.members.create({
         data: {
             discordID: member.id,
             name: member.user.username,
-            numberOfWarnings: 0
+            weeksOfInactivity: 0,
+            serverId: config.server_id
         }
     })))
 

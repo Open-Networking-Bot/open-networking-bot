@@ -4,18 +4,26 @@ import database from "../../functions/core/database";
 import {removeSingleOnLeave} from "./removeOnLeave";
 import dmUser from "../../functions/util/dmUser";
 import messages from "../../functions/models/messages";
+import config from "../../functions/models/config";
 
-export default async function (user : GuildMember){
-    const member = await database.members.findFirst({where: {discordID: user.id}})
+/**
+ * @author Lewis Page
+ * @description The controller to handle if someone goes On Leave.
+ * @param user The GuildMember, who went On Leave
+ * @returns A Log Promise.
+ */
+export default async function goOnLeave(user : GuildMember){
+    const member = await database.members.findFirst({where: {discordID: user.id, serverId: config.server_id}})
     if(!member) return logMessage
-    (`${user.user.username} has not been added to the SSS's database, however has attempted to go on leave`
+    (`${user.user.username} has not been added to the database, however has attempted to go on leave`
         ,logType.critical)
 
-    let onLeaveRecord = await database.onLeave.findFirst({where: {membersId: member.id}})
+    let onLeaveRecord = await database.onLeave.findFirst({where: {membersId: member.id, serverId: config.server_id}})
     if(!onLeaveRecord) onLeaveRecord = await database.onLeave.create({data: {
         membersId: member.id,
             startingDate: new Date(),
-            endingDate: null
+            endingDate: null,
+            serverId: config.server_id
     }})
 
     const date = new Date()

@@ -4,22 +4,25 @@ import { AccessLevels } from "../../functions/models/accessLevels";
 import config from "../../functions/models/config";
 import authenticate from "../../functions/util/authenticate";
 import dmUser from "../../functions/util/dmUser";
-import { getAllLiveMembers } from "../raids/list";
+import { getAllLiveMembers } from "../events/list";
 
-export default async function(message : Message){
-    if(await authenticate(message, AccessLevels.Council)) return; // Remove when allowed by council
-
+/**
+ * @author Lewis Page
+ * @description When the `$livemembers` command is run, a list of every live member is DMed to the person.
+ * @param message The Discord Message, sent.
+ */
+export default async function liveMembersCommand(message : Message){
     const fields = []
 
     const liveMembers = await getAllLiveMembers()
-    const allMemebers = await database.members.findMany()
+    const allMemebers = await database.members.findMany({where: {serverId: config.server_id}})
 
     for(let member of liveMembers){
         const databaseMember = allMemebers.find(i => i.discordID === member.id)
         if(!databaseMember || !databaseMember.url) continue;
 
         const nameToCall = !!member.nickname ? member.nickname : databaseMember.name
-        const isFeatured = member.roles.cache.some(role => config.raid_junkie_roles.some(x => role.id === x))
+        const isFeatured = member.roles.cache.some(role => config.priority_event_roles.some(x => role.id === x))
 
         fields.push({
             name: `${nameToCall}${isFeatured ? " (2 Points)" : ""}`,

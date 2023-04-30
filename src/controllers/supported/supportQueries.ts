@@ -1,35 +1,24 @@
 import {members} from ".prisma/client";
 import database from "../../functions/core/database";
 import { DAY } from "../../functions/core/magicNumbers";
+import config from "../../functions/models/config";
 
-
-export async function getTodaysSupportEntry(member : members){
-    const supportEntries = await (await database.support.findMany({where: {membersId: member.id}}))
-    if(!supportEntries || supportEntries.length === 0) return await database.support.create({data: {
-            member: {connect: {id: member.id}},
-            whoISupported: 0,
-            expressSupport: 0,
-            shoutOutSupport: 0,
-            inviteSupport: 0,
-            date: new Date()
-        }});
-
-    const sortedEntries = supportEntries.sort((a,b)=> (b.date.getTime() - a.date.getTime()))
-    const latest = sortedEntries[0]
-    if(latest.date.getDate() === new Date().getDate()) return latest;
-    return await database.support.create({data: {
-            member: {connect: {id: member.id}},
-            whoISupported: 0,
-            expressSupport: 0,
-            shoutOutSupport: 0,
-            inviteSupport: 0,
-            date: new Date()
-        }});
-}
-
+/**
+ * @author Lewis Page
+ * @description Collects x amount of days, worth of support entries, for a specified member.
+ * @param days The number of days to fetch.
+ * @param member The Database Member to collect the support entries for.
+ * @returns Returns the number of days worth of support entires.
+ */
 export async function collectXDaysOfSupportEntries(days : number, member : members){
-    const supportEntries = await database.support.findMany({where: {membersId: member.id}})
+    const supportEntries = await database.support.findMany({where: {
+        membersId: member.id,
+        serverId: config.server_id,
+        date: {
+            gte: new Date(new Date().getTime() - (DAY * days))
+        }
+    }})
     if(!supportEntries) return [];
 
-    return supportEntries.filter(entry => entry.date.getTime() > new Date().getTime() - (DAY * days))
+    return supportEntries
 }

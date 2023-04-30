@@ -9,65 +9,70 @@ datasource db {
 
 model beenRaided {
   id       Int      @id @default(autoincrement()) @map("_id")
+  serverId String
   url      String
   lastRaid DateTime
   notes    String
 }
 
 model members {
-  id                       Int @id @default(autoincrement()) @map("_id")
-  name                     String
-  url                      String?
-  numberOfWarnings         Int
-  discordID                String
-  joinedServer             DateTime @default(now())
-  expressEligible          Boolean  @default(false)
-  lastExpressDate          DateTime @default("1970-01-01T01:00:00+01:00")
-  comments                 String   @default("")
-  lastMessage              DateTime @default("1970-01-01T01:00:00+01:00")
-  raidParticipationHistory raidParticipationHistory[]
-  support                  support[]
-  onLeave                  onLeave[]
-  expressTimetable         expressTimetable[]
+  id                        Int                         @id @default(autoincrement()) @map("_id")
+  serverId                  String
+  name                      String
+  url                       String?
+  weeksOfInactivity         Int
+  discordID                 String
+  joinedServer              DateTime                    @default(now())
+  eventEligible             Boolean                     @default(false)
+  lastCalendarDate          DateTime                    @default("1970-01-01T01:00:00+01:00")
+  comments                  String                      @default("")
+  lastMessage               DateTime                    @default("1970-01-01T01:00:00+01:00")
+  eventParticipationHistory eventParticipationHistory[]
+  support                   support[]
+  onLeave                   onLeave[]
+  calendarTimetable         calendarTimetable[]
 }
 
-model raidParticipationHistory {
+model eventParticipationHistory {
   id            Int      @id @default(autoincrement()) @map("_id")
+  serverId      String
   member        members  @relation(references: [id], fields: [membersId])
-  raidDate      DateTime
+  eventDate     DateTime
   pointsAwarded Int
   membersId     Int
 }
 
 model support {
-  id             Int      @id @default(autoincrement()) @map("_id")
-  member         members  @relation(references: [id], fields: [membersId])
-  whoISupported  Int      @default(0)
-  expressSupport Float    @default(0)
-  shoutOutSupport Int     @default(0)
-  inviteSupport Int       @default(0)
-  date           DateTime
-  membersId      Int
+  id        Int      @id @default(autoincrement()) @map("_id")
+  serverId  String
+  member    members  @relation(references: [id], fields: [membersId])
+  value     Int      @default(0)
+  type      Int
+  date      DateTime
+  membersId Int
 }
 
 model onLeave {
-  id             Int      @id @default(autoincrement()) @map("_id")
-  member         members  @relation(references: [id], fields: [membersId])
-  startingDate   DateTime
-  endingDate     DateTime?
-  membersId      Int
+  id           Int       @id @default(autoincrement()) @map("_id")
+  serverId     String
+  member       members   @relation(references: [id], fields: [membersId])
+  startingDate DateTime
+  endingDate   DateTime?
+  membersId    Int
 }
 
-model expressTimetable {
-  id            Int     @id @default(autoincrement()) @map("_id")
-  member        members  @relation(references: [id], fields: [membersId])
-  slot          Int     @unique
-  membersId     Int
+model calendarTimetable {
+  id        Int     @id @default(autoincrement()) @map("_id")
+  serverId  String
+  member    members @relation(references: [id], fields: [membersId])
+  slot      Int     @unique
+  membersId Int
 }
 
-model expressConfig {
-  id            Int     @id @default(autoincrement()) @map("_id")
-  latestDate    DateTime
-  requestLock   Boolean @default(false)
-  expressLock   Boolean @default(false)
+model calendarConfig {
+  id          Int      @id @default(autoincrement()) @map("_id")
+  serverId    String
+  latestDate  DateTime
+  requestLock Boolean  @default(false)
+  calendarLock Boolean  @default(false)
 }

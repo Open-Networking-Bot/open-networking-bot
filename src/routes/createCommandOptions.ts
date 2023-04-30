@@ -5,17 +5,35 @@ import { pipeline } from "../functions/util/functionalPatterns";
 import parseMentionedUser from "../functions/validation/parseMentionedUser";
 import TextCommandOption, { keyValuePair } from "./models/TextCommandOption";
 
+/**
+ * @typedef
+ * @author Lewis Page
+ * @description The combined command, and the arguments given for it.
+ */
 type commandInfo = {
     command: Command,
     args: TextCommandOption
 }
 
+/**
+ * @enum
+ * @author Lewis Page
+ * @description Represents the different types of errors that can come from the command system. Only represents client-side errors.
+ */
 export enum CommandOptionErrorResponse {
     NotEnoughArgs,
     NoCommandExists,
     InvalidMember
 }
 
+/**
+ * @author Lewis Page
+ * @description Creates a Text Command Option from a text-based command input. 
+ * @param content The content of the message, split by spaces.
+ * @param isCommandCategorized If the command being inputted is part of a command category.
+ * @param command The command to extract the options for.
+ * @returns The created `TextCommandOption` object or an Error Response.
+ */
 function createTextCommandOption(content : string[], isCommandCategorized : boolean, command : Command){
     if(!command.args) return new TextCommandOption([], [], [], [], []);
 
@@ -57,6 +75,12 @@ function createTextCommandOption(content : string[], isCommandCategorized : bool
     return new TextCommandOption(members, numbers, integers, strings, booleans)
 }
 
+/**
+ * @author Lewis Page
+ * @description Finds a command from a text-based input.
+ * @param content The message content, split by spaces.
+ * @returns The command as well as its arguments, or an Error Response.
+ */
 function findCommand(content : string[]) : commandInfo | CommandOptionErrorResponse {
     if(content.length < 1) return CommandOptionErrorResponse.NotEnoughArgs
 
@@ -83,6 +107,12 @@ function findCommand(content : string[]) : commandInfo | CommandOptionErrorRespo
     return CommandOptionErrorResponse.NoCommandExists
 }
 
+/**
+ * @author Lewis Page
+ * @description Finds the information regarding a command, from a Discord Message.
+ * @param message The Discord Message, sent.
+ * @returns The command as well as its arguments, or an Error Response.
+ */
 export default function analyseCommand(message : Message){
     const content = message.content.slice(1).split(" ")
     return findCommand(content)

@@ -1,4 +1,5 @@
 import database from "../core/database";
+import config from "../models/config";
 
 /**
  * @author Lewis Page
@@ -7,5 +8,5 @@ import database from "../core/database";
  * @param newUrl The URL to change any records to
  */
 export default async function autocorrectURLChange(oldUrl : string, newUrl : string){
-    await database.beenRaided.updateMany({where: {url: oldUrl}, data: {url: newUrl}})
+    await database.beenRaided.updateMany({where: {url: oldUrl, serverId: config.server_id}, data: {url: newUrl}})
 }

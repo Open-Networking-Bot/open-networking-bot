@@ -14,7 +14,12 @@ import autocorrectURLChange from "../../functions/features/autocorrectURLChange"
  * @param newMember The Guild Member to initialise.
  */
 export async function newMemberAuto(newMember : GuildMember){
-    await database.members.create({ data: { name: newMember.user.username, discordID: newMember.user.id, numberOfWarnings: 0 } })
+    await database.members.create({ data: { 
+        name: newMember.user.username,
+        discordID: newMember.user.id,
+        weeksOfInactivity: 0,
+        serverId: config.server_id
+    } })
     await newMember.roles.add(config.new_member_role)
 }
 
@@ -38,7 +43,13 @@ export async function newMemberManual(message : Message<boolean>, content : stri
         return  message.reply(messages.no_user)
     }
 
-    await database.members.create({data: {name: newMember.username, discordID: newMember.id, numberOfWarnings: 0, url: url}})
+    await database.members.create({data: {
+        name: newMember.username, 
+        discordID: newMember.id, 
+        weeksOfInactivity: 0, 
+        url: url,
+        serverId: config.server_id
+    }})
     return message.reply(messages.manual_user_addition)
 }
 
@@ -57,7 +68,7 @@ export async function memberInit(message : Message<boolean>, content : string[])
         return message.reply({content: messages.should_not_be_a_url})
     }
 
-    const usr = await database.members.findFirst({where: {discordID: content[2]}})
+    const usr = await database.members.findFirst({where: {discordID: content[2], serverId: config.server_id }})
     const oldUrl = !!usr ? usr.url : null
     if(!usr){
         return message.reply({content: messages.no_user})
@@ -65,7 +76,8 @@ export async function memberInit(message : Message<boolean>, content : string[])
 
     await database.members.updateMany({
         where: {
-            discordID: parseMentionedUser(content[2])
+            discordID: parseMentionedUser(content[2]),
+            serverId: config.server_id
         },
         data: { url: url }
     })
@@ -90,7 +102,7 @@ export async function memberLink(message : Message<boolean>, content : string[])
         return message.reply({content: messages.should_not_be_a_url})
     }
 
-    const usr = await database.members.findFirst({where: {discordID: message.author.id}})
+    const usr = await database.members.findFirst({where: {discordID: message.author.id, serverId: config.server_id}})
     const oldUrl = !!usr ? usr.url : null
     if(!usr){
         return message.reply({content: messages.no_user_error})
@@ -98,7 +110,8 @@ export async function memberLink(message : Message<boolean>, content : string[])
 
     await database.members.updateMany({
         where: {
-            discordID: message.author.id
+            discordID: message.author.id,
+            serverId: config.server_id
         },
         data: { url: url }
     })

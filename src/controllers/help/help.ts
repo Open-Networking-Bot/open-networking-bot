@@ -3,6 +3,14 @@ import helpCommands, { Command } from "../../functions/features/helpCommands"
 import noCommand from "./noCommand";
 import { hasNotGotRoles } from "../../functions/util/authenticate";
 
+/**
+ * @author Lewis Page
+ * @description Creates an embed for a Discord Reply, related to the help menu
+ * @param commandName The command's name
+ * @param commandDesc The command's description
+ * @param fields The embed fields
+ * @returns The created embed, in a list
+ */
 function createReply(commandName : string, commandDesc : string, fields : {name : string, value : string}[]){
     return [
         {
@@ -14,7 +22,14 @@ function createReply(commandName : string, commandDesc : string, fields : {name 
     ]
 }
 
-export default async function (message : Message, content : string[]) {
+/**
+ * @author Lewis Page
+ * @description Gives a list of commands that the bot has. Invoked with `$help`.
+ * @param message The Discord Message
+ * @param content The Message's content, split by spaces.
+ * @returns A message reply promise, or undefined
+ */
+export default async function helpCommand(message : Message, content : string[]) {
 
     // Define a subroutine which creates a reply to the help message.
     const makeGenericHelpScreen = (command : Command, commandPrefix = "") =>

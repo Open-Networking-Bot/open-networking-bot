@@ -4,22 +4,32 @@ import authenticate from "../../functions/util/authenticate";
 import config from "../../functions/models/config";
 import database from "../../functions/core/database";
 import { AccessLevels } from "../../functions/models/accessLevels";
+import { DAY } from "../../functions/core/magicNumbers";
 
-export default async function (message : Message){
+/**
+ * @author Lewis Page
+ * @description Purges all point data in the database from over a number of weeks ago, when the `$purge` command is invoked.
+ * @param message The Discord Message, sent.
+ * @returns A Message Reply Promise.
+ */
+export default async function databasePurge(message : Message){
 
-    if(authenticate(message, AccessLevels.Council)) return;
+    if(authenticate(message, AccessLevels.Admin)) return;
 
-    const monthAgo = new Date (new Date().getTime() - 86400000 * config.purge_date_limit)
+    const monthAgo = new Date (new Date().getTime() - DAY * config.purge_date_limit)
     const deletionQueue : Promise<any>[] = []
 
     // Raid Purge
-    const raids = (await database.raidParticipationHistory.findMany()).filter(i => i.raidDate.getTime() < monthAgo.getTime())
+    const raids = (await database.eventParticipationHistory.findMany({where: {serverId: config.server_id}}))
+    .filter(i => i.eventDate.getTime() < monthAgo.getTime())
+
     for (let raid of raids){
-        deletionQueue.push(database.raidParticipationHistory.delete({where: {id: raid.id}}))
+        deletionQueue.push(database.eventParticipationHistory.delete({where: {id: raid.id}}))
     }
 
     // Support Purge
-    const support = (await database.support.findMany()).filter(i => i.date.getTime() < monthAgo.getTime())
+    const support = (await database.support.findMany({where: {serverId: config.server_id}}))
+    .filter(i => i.date.getTime() < monthAgo.getTime())
     for (let supportEntry of support){
         deletionQueue.push(database.support.delete({where: {id: supportEntry.id}}))
     }

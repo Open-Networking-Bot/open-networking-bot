@@ -9,7 +9,8 @@
     "db_init": "tsc && node dist/app.js first_time_setup",
     "no_nbr": "tsc && node dist/app.js been_raided_records",
     "command_init": "node dist/app.js slashcommand_setup",
-    "init": "npm run db_init && npm run command_init"
+    "init": "npm run db_init && npm run command_init",
+    "document": "tsc && jsdoc -r src -d docs -c jsdoc.conf.json"
   },
   "author": "Lewis Page",
   "license": "MIT",
@@ -26,6 +27,10 @@
     "@types/node": "^16.11.12",
     "@types/validator": "^13.7.0",
     "@types/yaml": "^1.9.7",
-    "prisma": "^4.2.1"
+    "better-docs": "^2.7.2",
+    "jsdoc": "^4.0.2",
+    "jsdoc-plugin-typescript": "^2.2.1",
+    "prisma": "^4.2.1",
+    "taffydb": "^2.7.3"
   }
 }

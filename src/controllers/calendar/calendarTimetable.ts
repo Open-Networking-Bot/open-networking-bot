@@ -7,11 +7,18 @@ import fs from "fs/promises"
 import csvMaker from "../../functions/util/csvMaker";
 import { WEEK } from "../../functions/core/magicNumbers";
 
-export default async function(message : Message){
-    const fullTimetable = await database.expressTimetable.findMany()
+/**
+ * @author Lewis Page
+ * @description Creates a CSV file, containing the calendar roster, when the `$calendar timetable` command is invoked
+ * @param message The Discord Message
+ * @param content The Message's content, split by spaces.
+ * @returns A message reply promise
+ */
+export default async function calendarTimetable(message : Message){
+    const fullTimetable = await database.calendarTimetable.findMany({where: {serverId: config.server_id}})
 
     const csv : string[][] = [["Discord Username", "Twitch Username", "Slot"]]
-    for(let i = 1; i <= config.express_max_slots; i++){
+    for(let i = 1; i <= config.calendar_max_slots; i++){
 
         let found = false
         for(let slot of fullTimetable){

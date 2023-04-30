@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> controllers/initiation/left.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="Auto_Week_End.html">Auto_Week_End</a></li><li><a href="Live_Role_Updater.html">Live_Role_Updater</a></li><li><a href="Remove_New_Role.html">Remove_New_Role</a></li></ul><h3>Classes</h3><ul><li><a href="CommandController_CommandController.html">CommandController</a></li><li><a href="ErrorMonad_ErrorMonad.html">ErrorMonad</a></li><li><a href="FeatureLock_FeatureLock.html">FeatureLock</a></li><li><a href="IntervalManager_IntervalManager.html">IntervalManager</a></li><li><a href="Monad_Monad.html">Monad</a></li><li><a href="TextCommandOption_TextCommandOption.html">TextCommandOption</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="AbstractedCommand.html">AbstractedCommand</a></li><li><a href="Command.html">Command</a></li><li><a href="CommandCategory.html">CommandCategory</a></li><li><a href="CriticalData.html">CriticalData</a></li><li><a href="DateRange.html">DateRange</a></li><li><a href="IDescribable.html">IDescribable</a></li><li><a href="IntervalInstance.html">IntervalInstance</a></li><li><a href="LegacyCommandAbstraction.html">LegacyCommandAbstraction</a></li><li><a href="SentMessage.html">SentMessage</a></li><li><a href="StandardDataFormat.html">StandardDataFormat</a></li><li><a href="UserDataDateRange.html">UserDataDateRange</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AccessLevelNumberToPermittedIDs">AccessLevelNumberToPermittedIDs</a></li><li><a href="global.html#AccessLevels">AccessLevels</a></li><li><a href="global.html#AccessLevelsToPermittedIDs">AccessLevelsToPermittedIDs</a></li><li><a href="global.html#Clamp">Clamp</a></li><li><a href="global.html#CommandOptionErrorResponse">CommandOptionErrorResponse</a></li><li><a href="global.html#Deleted">Deleted</a></li><li><a href="global.html#IsError">IsError</a></li><li><a href="global.html#Monad">Monad</a></li><li><a href="global.html#New">New</a></li><li><a href="global.html#NoUpdate">NoUpdate</a></li><li><a href="global.html#SeperateAccessLevels">SeperateAccessLevels</a></li><li><a href="global.html#SupportTypes">SupportTypes</a></li><li><a href="global.html#TESTS">TESTS</a></li><li><a href="global.html#TOLERATED_WEIGHT">TOLERATED_WEIGHT</a></li><li><a href="global.html#Update">Update</a></li><li><a href="global.html#Updated">Updated</a></li><li><a href="global.html#add">add</a></li><li><a href="global.html#addInstance">addInstance</a></li><li><a href="global.html#canBeRaidedWeekly">canBeRaidedWeekly</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#collectXDaysOfSupportEntries">collectXDaysOfSupportEntries</a></li><li><a href="global.html#createCommand">createCommand</a></li><li><a href="global.html#createReply">createReply</a></li><li><a href="global.html#createTextCommandOption">createTextCommandOption</a></li><li><a href="global.html#curry">curry</a></li><li><a href="global.html#endWeekLogic">endWeekLogic</a></li><li><a href="global.html#eventAttendanceHistory">eventAttendanceHistory</a></li><li><a href="global.html#findCommand">findCommand</a></li><li><a href="global.html#findDatabaseInfoAboutMembers">findDatabaseInfoAboutMembers</a></li><li><a href="global.html#findMemberRaidTrainEligiblity">findMemberRaidTrainEligiblity</a></li><li><a href="global.html#findMostRecentRaid">findMostRecentRaid</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#formatWhoToRaid">formatWhoToRaid</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAllLiveMembers">getAllLiveMembers</a></li><li><a href="global.html#getBoolean">getBoolean</a></li><li><a href="global.html#getInteger">getInteger</a></li><li><a href="global.html#getMember">getMember</a></li><li><a href="global.html#getMessageCache">getMessageCache</a></li><li><a href="global.html#getNumber">getNumber</a></li><li><a href="global.html#getString">getString</a></li><li><a href="global.html#handle">handle</a></li><li><a href="global.html#handleAddition">handleAddition</a></li><li><a href="global.html#handleAsync">handleAsync</a></li><li><a href="global.html#handleSubtraction">handleSubtraction</a></li><li><a href="global.html#hasNotGotRoles">hasNotGotRoles</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#leave">leave</a></li><li><a href="global.html#leaveAuto">leaveAuto</a></li><li><a href="global.html#leaveManual">leaveManual</a></li><li><a href="global.html#logMessage">logMessage</a></li><li><a href="global.html#logType">logType</a></li><li><a href="global.html#logType%255Bundefined%255D">logType[undefined]</a></li><li><a href="global.html#memberHasRole">memberHasRole</a></li><li><a href="global.html#memberHasRoles">memberHasRoles</a></li><li><a href="global.html#memberInit">memberInit</a></li><li><a href="global.html#memberLink">memberLink</a></li><li><a href="global.html#newMemberAuto">newMemberAuto</a></li><li><a href="global.html#newMemberManual">newMemberManual</a></li><li><a href="global.html#newMessage">newMessage</a></li><li><a href="global.html#pipeline">pipeline</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#removeInstance">removeInstance</a></li><li><a href="global.html#removeOnLeave">removeOnLeave</a></li><li><a href="global.html#removeSingleOnLeave">removeSingleOnLeave</a></li><li><a href="global.html#saveMessageHistory">saveMessageHistory</a></li><li><a href="global.html#toggle">toggle</a></li><li><a href="global.html#updateRoles">updateRoles</a></li><li><a href="global.html#visitedHistory">visitedHistory</a></li><li><a href="global.html#weekEndOnLeaveHandler">weekEndOnLeaveHandler</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>controllers/initiation/left.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {GuildMember, Message, PartialGuildMember, User} from "discord.js";
+import requireContentLengthOf from "../../functions/validation/requireContentLengthOf";
+import messages from "../../functions/models/messages";
+import database from "../../functions/core/database";
+import { logMessage } from "../logging/loggingManager";
+import { members } from "@prisma/client";
+import parseMentionedUser from "../../functions/validation/parseMentionedUser";
+import config from "../../functions/models/config";
+
+/**
+ * @author Lewis Page
+ * @description When a member leaves the server, the function deletes all their database information.
+ * @param member The member being deleted
+ */
+export async function leaveAuto(member : GuildMember | PartialGuildMember){
+    const m = await database.members.findFirst({where: {discordID: member.id, serverId: config.server_id}})
+
+    await leave(m)
+    logMessage(member.displayName + " has been wiped from the database entirely")
+}
+
+/**
+ * @author Lewis Page
+ * @description Deletes a member from the database, when the `$user remove` command is invoked.
+ * @param message The Discord Message, sent
+ * @param content The Message's content, split by spaces
+ * @returns The Message Reply Promise
+ */
+export async function leaveManual(message : Message&lt;boolean>, content : string[]){
+
+    if(await requireContentLengthOf(message, content, 3)) return;
+
+    const m = await database.members.findFirst({where: {
+        discordID: parseMentionedUser(content[2]), 
+        serverId: config.server_id
+    }})
+
+    if(!m){
+        return message.reply(messages.no_user)
+    }
+    const res = await leave(m)
+
+    return message.reply( {content: res?
+            `✅ ${m.name} has been wiped from the database entirely`:
+            messages.no_user_error_third_person
+    })
+}
+/**
+ * @author Lewis Page
+ * @description Deletes a member, and its relations, from the database.
+ * @param member The member, or lack theirof, to remove.
+ * @returns If a member was deleted or not
+ */
+async function leave(member : members | null) : Promise&lt;boolean>{
+    if(!member) return false;
+
+    const deleteMember = database.members.delete({where: {id: member.id}})
+    const deleteEventParticipation = database.eventParticipationHistory.deleteMany({where: {membersId: member.id}})
+    const deleteSupport = database.support.deleteMany({where: {membersId: member.id}})
+    const deleteSlots = database.calendarTimetable.deleteMany({where: {membersId: member.id}})
+    const deleteLeave = database.onLeave.deleteMany({where: {membersId: member.id}})
+
+    await database.$transaction([deleteEventParticipation, deleteSupport, deleteSlots, deleteLeave])
+    await deleteMember
+    
+    return true;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

@@ -27,9 +27,9 @@ client.on("guildMemberRemove",protectCommand(left))
 client.on("messageCreate", protectCommand(NoUpdate))
 client.on("messageUpdate", protectCommand(Update))
 client.on("messageDelete", protectCommand(message => {
-    if(config.raid_message_channels.some(msg => msg === message.channelId)) return remove(message as Message);
+    if(config.event_message_channels.some(msg => msg === message.channelId)) return remove(message as Message);
     switch(message.channel.id){
-        case config.express_support_channel: return supportDeleted(message, calendarSupport.handleSubtraction);
+        case config.calendar_support_channel: return supportDeleted(message, calendarSupport.handleSubtraction);
         case config.who_i_supported_channel: return supportDeleted(message, whoISupported.handleSubtraction, whoISupported.specialTagCalculation);
         case config.shout_out_support_channel: return supportDeleted(message, shoutOutSupport.handleSubtraction)
         case config.who_invited_me_channel: return Deleted(message)

@@ -1,0 +1,280 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title> controllers/weekEnd/endWeek.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    Documentation
+                </a>
+                
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Namespaces</h3><ul><li><a href="Auto_Week_End.html">Auto_Week_End</a></li><li><a href="Live_Role_Updater.html">Live_Role_Updater</a></li><li><a href="Remove_New_Role.html">Remove_New_Role</a></li></ul><h3>Classes</h3><ul><li><a href="CommandController_CommandController.html">CommandController</a></li><li><a href="ErrorMonad_ErrorMonad.html">ErrorMonad</a></li><li><a href="FeatureLock_FeatureLock.html">FeatureLock</a></li><li><a href="IntervalManager_IntervalManager.html">IntervalManager</a></li><li><a href="Monad_Monad.html">Monad</a></li><li><a href="TextCommandOption_TextCommandOption.html">TextCommandOption</a></li><li><a href="module.html#.exports">exports</a></li></ul><h3>Interfaces</h3><ul><li><a href="AbstractedCommand.html">AbstractedCommand</a></li><li><a href="Command.html">Command</a></li><li><a href="CommandCategory.html">CommandCategory</a></li><li><a href="CriticalData.html">CriticalData</a></li><li><a href="DateRange.html">DateRange</a></li><li><a href="IDescribable.html">IDescribable</a></li><li><a href="IntervalInstance.html">IntervalInstance</a></li><li><a href="LegacyCommandAbstraction.html">LegacyCommandAbstraction</a></li><li><a href="SentMessage.html">SentMessage</a></li><li><a href="StandardDataFormat.html">StandardDataFormat</a></li><li><a href="UserDataDateRange.html">UserDataDateRange</a></li></ul><h3>Global</h3><ul><li><a href="global.html#AccessLevelNumberToPermittedIDs">AccessLevelNumberToPermittedIDs</a></li><li><a href="global.html#AccessLevels">AccessLevels</a></li><li><a href="global.html#AccessLevelsToPermittedIDs">AccessLevelsToPermittedIDs</a></li><li><a href="global.html#Clamp">Clamp</a></li><li><a href="global.html#CommandOptionErrorResponse">CommandOptionErrorResponse</a></li><li><a href="global.html#Deleted">Deleted</a></li><li><a href="global.html#IsError">IsError</a></li><li><a href="global.html#Monad">Monad</a></li><li><a href="global.html#New">New</a></li><li><a href="global.html#NoUpdate">NoUpdate</a></li><li><a href="global.html#SeperateAccessLevels">SeperateAccessLevels</a></li><li><a href="global.html#SupportTypes">SupportTypes</a></li><li><a href="global.html#TESTS">TESTS</a></li><li><a href="global.html#TOLERATED_WEIGHT">TOLERATED_WEIGHT</a></li><li><a href="global.html#Update">Update</a></li><li><a href="global.html#Updated">Updated</a></li><li><a href="global.html#add">add</a></li><li><a href="global.html#addInstance">addInstance</a></li><li><a href="global.html#canBeRaidedWeekly">canBeRaidedWeekly</a></li><li><a href="global.html#clear">clear</a></li><li><a href="global.html#collectXDaysOfSupportEntries">collectXDaysOfSupportEntries</a></li><li><a href="global.html#createCommand">createCommand</a></li><li><a href="global.html#createReply">createReply</a></li><li><a href="global.html#createTextCommandOption">createTextCommandOption</a></li><li><a href="global.html#curry">curry</a></li><li><a href="global.html#endWeekLogic">endWeekLogic</a></li><li><a href="global.html#eventAttendanceHistory">eventAttendanceHistory</a></li><li><a href="global.html#findCommand">findCommand</a></li><li><a href="global.html#findDatabaseInfoAboutMembers">findDatabaseInfoAboutMembers</a></li><li><a href="global.html#findMemberRaidTrainEligiblity">findMemberRaidTrainEligiblity</a></li><li><a href="global.html#findMostRecentRaid">findMostRecentRaid</a></li><li><a href="global.html#findUser">findUser</a></li><li><a href="global.html#formatWhoToRaid">formatWhoToRaid</a></li><li><a href="global.html#get">get</a></li><li><a href="global.html#getAllLiveMembers">getAllLiveMembers</a></li><li><a href="global.html#getBoolean">getBoolean</a></li><li><a href="global.html#getInteger">getInteger</a></li><li><a href="global.html#getMember">getMember</a></li><li><a href="global.html#getMessageCache">getMessageCache</a></li><li><a href="global.html#getNumber">getNumber</a></li><li><a href="global.html#getString">getString</a></li><li><a href="global.html#handle">handle</a></li><li><a href="global.html#handleAddition">handleAddition</a></li><li><a href="global.html#handleAsync">handleAsync</a></li><li><a href="global.html#handleSubtraction">handleSubtraction</a></li><li><a href="global.html#hasNotGotRoles">hasNotGotRoles</a></li><li><a href="global.html#isActive">isActive</a></li><li><a href="global.html#leave">leave</a></li><li><a href="global.html#leaveAuto">leaveAuto</a></li><li><a href="global.html#leaveManual">leaveManual</a></li><li><a href="global.html#logMessage">logMessage</a></li><li><a href="global.html#logType">logType</a></li><li><a href="global.html#logType%255Bundefined%255D">logType[undefined]</a></li><li><a href="global.html#memberHasRole">memberHasRole</a></li><li><a href="global.html#memberHasRoles">memberHasRoles</a></li><li><a href="global.html#memberInit">memberInit</a></li><li><a href="global.html#memberLink">memberLink</a></li><li><a href="global.html#newMemberAuto">newMemberAuto</a></li><li><a href="global.html#newMemberManual">newMemberManual</a></li><li><a href="global.html#newMessage">newMessage</a></li><li><a href="global.html#pipeline">pipeline</a></li><li><a href="global.html#remove">remove</a></li><li><a href="global.html#removeInstance">removeInstance</a></li><li><a href="global.html#removeOnLeave">removeOnLeave</a></li><li><a href="global.html#removeSingleOnLeave">removeSingleOnLeave</a></li><li><a href="global.html#saveMessageHistory">saveMessageHistory</a></li><li><a href="global.html#toggle">toggle</a></li><li><a href="global.html#updateRoles">updateRoles</a></li><li><a href="global.html#visitedHistory">visitedHistory</a></li><li><a href="global.html#weekEndOnLeaveHandler">weekEndOnLeaveHandler</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>controllers/weekEnd/endWeek.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {Collection, Message, MessageAttachment, Role} from "discord.js";
+import config from "../../functions/models/config";
+import fs from "fs/promises";
+import path from "path";
+import rootDir from "../../functions/util/rootDir";
+import csvMaker from "../../functions/util/csvMaker";
+import getUserData, { DateRange } from "../../functions/features/getUserData";
+import {collectXDaysOfSupportEntries} from "../supported/supportQueries";
+import client from "../../functions/core/serverInit";
+import database from "../../functions/core/database";
+import {logMessage, logType} from "../logging/loggingManager";
+import { MONTH, WEEK } from "../../functions/core/magicNumbers";
+import { members, onLeave } from "@prisma/client";
+import { saveMessageHistory } from "../misc/messageHandler";
+import StandardDataFormat from "../../functions/models/standardDataFormat";
+
+export type dataUpdateHandler = (userData : StandardDataFormat, member : members) => Promise&lt;void>
+export type onLeaveExtraExclusionCriteria = (onLeaveRecord : onLeave, dateRange : DateRange) => boolean
+
+/**
+ * @author Lewis Page
+ * @description Creates a message attachment, containing an activity report of the server.
+ * @param handler A callback function, containing the logic for how data should be handled when scanned in the activity report.
+ * @param dateRange How many weeks to consider in the report, and what UNIX Timecode to start counting from.
+ * @param onLeaveHandler A lambda function, which inputs the considered On Leave record and report date, and outputs if they should be excluded from the report.
+ * @returns The created message attachment
+ */
+export async function endWeekLogic(handler : dataUpdateHandler, dateRange : DateRange, onLeaveHandler : onLeaveExtraExclusionCriteria){
+
+    // Update latest messages
+    await saveMessageHistory()
+
+    // Get Members
+    const allMembers = await database.members.findMany()
+
+    // Get all events in the last week
+    const allEvents = (await database.eventParticipationHistory.findMany()).filter(event => {
+        const date = new Date()
+        return event.eventDate.getDate() >= date.getDate() - (config.use_weekly_average ? config.weeks_for_average * 7 : 7)
+    })
+
+    // Make the start of the CSV data
+    const data : any[][] = [[
+        "discordUsername",
+        "discordID",
+        "twitchUsername",
+        "events",
+        "numberOfCalendarTags",
+        "numberOfSupportedTags",
+        "numberOfShoutoutTags",
+        "numberOfInviteTags",
+        "totalPointsClamped",
+        "totalPoints",
+        "averagePoints",
+        "weeksOfInactivity",
+        "eligibleForCalendar",
+        "isNotOnLeave",
+        "lastMessage",
+        "comments"
+    ]]
+
+    // Get server guild
+    const guild = await client.guilds.fetch(config.server_id)
+
+    // Get On Leave Records
+    const onLeaveRecords = await database.onLeave.findMany({where: {serverId: config.server_id}})
+
+    // Iterate through every member
+    for (let i = 0; i &lt; allMembers.length; i++){
+
+        const member = allMembers[i]
+
+        // Verify that the user is supposed to be activity checked
+        let roles : Collection&lt;string, Role> | null = null
+        try{
+            roles = (await guild.members.fetch(member.discordID)).roles.cache
+        }
+        catch{
+            logMessage(`The member ${member.name} (${member.discordID}) is still in the database, even though they cannot be found in the server`, logType.warning)
+            continue;
+        }
+
+        let activityChecked = true
+
+        for (let role of roles) for (let roleID of config.exempt_roles) if(role[1].id === roleID) activityChecked = false
+
+        for (let record of onLeaveRecords) {
+            if(record.membersId !== member.id) continue;
+            if (!record.endingDate || record.startingDate.getTime() > record.endingDate.getTime() || onLeaveHandler(record, dateRange))
+                activityChecked = false;
+                
+            if(new Date().getTime() - record.startingDate.getTime() > MONTH &amp;&amp; (!record.endingDate || record.endingDate.getTime() &lt;= record.startingDate.getTime()))
+                await logMessage(`${member.name} has been on leave for longer than a month`, logType.alert)
+        }
+
+        const weeksSinceServerJoin = Math.trunc((dateRange.dateToStartFrom.getTime() - member.joinedServer.getTime()) / WEEK)
+        if (weeksSinceServerJoin &lt; 2) activityChecked = false
+
+        // Get support entries
+        const supportEntries = await collectXDaysOfSupportEntries(config.use_weekly_average ? 7 * config.weeks_for_average : 7, member)
+
+        // Get OnLeave record
+        const onLeaveRecord = await database.onLeave.findFirst({where: {membersId: member.id, serverId: config.server_id}})
+
+        // Fill in user data
+        const userData = getUserData({
+            member: member,
+            onLeaveRecord: onLeaveRecord,
+            supportEntries: supportEntries,
+            allEvents: allEvents
+        }, activityChecked ,{
+            weeksToConsider: config.use_weekly_average ? Math.min(weeksSinceServerJoin, config.weeks_for_average) : 1,
+            dateToStartFrom: dateRange.dateToStartFrom,
+            definitionOfWeek: dateRange.weeksToConsider * WEEK
+        })
+
+        data[i + 1] = [
+            userData.discordUsername,
+            userData.discordID,
+            userData.twitchUsername,
+            userData.events,
+            userData.numberOfCalendarTags,
+            userData.numberOfSupportedTags,
+            userData.numberOfShoutoutTags,
+            userData.numberOfInviteTags,
+            userData.totalPointsClamped,
+            userData.totalPoints,
+            userData.averagePoints,
+            userData.weeksOfInactivity,
+            userData.eligibleForCalendar,
+            userData.isNotOnLeave,
+            userData.lastMessage,
+            userData.comments
+        ]
+
+        // Handle week review/week end
+        await handler(userData, member)
+
+    }
+
+    // Define the file path for the record
+    const filePath = path.join(rootDir, "data", "week.csv")
+
+    // Create the CSV file
+    await fs.writeFile(filePath, csvMaker(data))
+
+    // Return the file
+    return new MessageAttachment(filePath, 
+        `Week__${new Date(dateRange.dateToStartFrom.getTime() - (dateRange.weeksToConsider * WEEK)).toDateString()}-${dateRange.dateToStartFrom.toDateString()}.csv`)
+}
+
+//
+/**
+ * @author Lewis Page
+ * @description Handles the creation of reports when a `$week` style command is invoked.
+ * @param handler A callback function, containing the logic for how data should be handled when scanned in the activity report.
+ * @param dateRange How many weeks to consider in the report, and what UNIX Timecode to start counting from.
+ * @param onLeaveHandler A lambda function, which inputs the considered On Leave record and report date, and outputs if they should be excluded from the report.
+ * @param message The Discord Message, sent.
+ */
+export default async function endWeekCommandController(handler : dataUpdateHandler, dateRange : DateRange, onLeaveHandler : onLeaveExtraExclusionCriteria, message : Message) {
+    const file = await endWeekLogic(handler, dateRange, onLeaveHandler)
+    await message.reply({files: [file]})
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 4.0.2</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+
+</body>
+</html>

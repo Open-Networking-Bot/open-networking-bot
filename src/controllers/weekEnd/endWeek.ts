@@ -17,6 +17,14 @@ import StandardDataFormat from "../../functions/models/standardDataFormat";
 export type dataUpdateHandler = (userData : StandardDataFormat, member : members) => Promise<void>
 export type onLeaveExtraExclusionCriteria = (onLeaveRecord : onLeave, dateRange : DateRange) => boolean
 
+/**
+ * @author Lewis Page
+ * @description Creates a message attachment, containing an activity report of the server.
+ * @param handler A callback function, containing the logic for how data should be handled when scanned in the activity report.
+ * @param dateRange How many weeks to consider in the report, and what UNIX Timecode to start counting from.
+ * @param onLeaveHandler A lambda function, which inputs the considered On Leave record and report date, and outputs if they should be excluded from the report.
+ * @returns The created message attachment
+ */
 export async function endWeekLogic(handler : dataUpdateHandler, dateRange : DateRange, onLeaveHandler : onLeaveExtraExclusionCriteria){
 
     // Update latest messages
@@ -25,10 +33,10 @@ export async function endWeekLogic(handler : dataUpdateHandler, dateRange : Date
     // Get Members
     const allMembers = await database.members.findMany()
 
-    // Get all raids in the last week
-    const allRaids = (await database.raidParticipationHistory.findMany()).filter(raid => {
+    // Get all events in the last week
+    const allEvents = (await database.eventParticipationHistory.findMany()).filter(event => {
         const date = new Date()
-        return raid.raidDate.getDate() >= date.getDate() - (config.use_weekly_average ? config.weeks_for_average * 7 : 7)
+        return event.eventDate.getDate() >= date.getDate() - (config.use_weekly_average ? config.weeks_for_average * 7 : 7)
     })
 
     // Make the start of the CSV data
@@ -36,16 +44,16 @@ export async function endWeekLogic(handler : dataUpdateHandler, dateRange : Date
         "discordUsername",
         "discordID",
         "twitchUsername",
-        "raids",
-        "numberOfExpressTags",
+        "events",
+        "numberOfCalendarTags",
         "numberOfSupportedTags",
         "numberOfShoutoutTags",
         "numberOfInviteTags",
         "totalPointsClamped",
         "totalPoints",
         "averagePoints",
-        "numberOfWarnings",
-        "eligibleForExpress",
+        "weeksOfInactivity",
+        "eligibleForCalendar",
         "isNotOnLeave",
         "lastMessage",
         "comments"
@@ -55,7 +63,7 @@ export async function endWeekLogic(handler : dataUpdateHandler, dateRange : Date
     const guild = await client.guilds.fetch(config.server_id)
 
     // Get On Leave Records
-    const onLeaveRecords = await database.onLeave.findMany()
+    const onLeaveRecords = await database.onLeave.findMany({where: {serverId: config.server_id}})
 
     // Iterate through every member
     for (let i = 0; i < allMembers.length; i++){
@@ -92,34 +100,34 @@ export async function endWeekLogic(handler : dataUpdateHandler, dateRange : Date
         const supportEntries = await collectXDaysOfSupportEntries(config.use_weekly_average ? 7 * config.weeks_for_average : 7, member)
 
         // Get OnLeave record
-        const onLeaveRecord = await database.onLeave.findFirst({where: {membersId: member.id}})
+        const onLeaveRecord = await database.onLeave.findFirst({where: {membersId: member.id, serverId: config.server_id}})
 
         // Fill in user data
         const userData = getUserData({
             member: member,
             onLeaveRecord: onLeaveRecord,
             supportEntries: supportEntries,
-            allRaids: allRaids
+            allEvents: allEvents
         }, activityChecked ,{
             weeksToConsider: config.use_weekly_average ? Math.min(weeksSinceServerJoin, config.weeks_for_average) : 1,
             dateToStartFrom: dateRange.dateToStartFrom,
             definitionOfWeek: dateRange.weeksToConsider * WEEK
-        }/* member, onLeaveRecord, allRaids, supportEntries, activityChecked,  */)
+        })
 
         data[i + 1] = [
             userData.discordUsername,
             userData.discordID,
             userData.twitchUsername,
-            userData.raids,
-            userData.numberOfExpressTags,
+            userData.events,
+            userData.numberOfCalendarTags,
             userData.numberOfSupportedTags,
             userData.numberOfShoutoutTags,
             userData.numberOfInviteTags,
             userData.totalPointsClamped,
             userData.totalPoints,
             userData.averagePoints,
-            userData.numberOfWarnings,
-            userData.eligibleForExpress,
+            userData.weeksOfInactivity,
+            userData.eligibleForCalendar,
             userData.isNotOnLeave,
             userData.lastMessage,
             userData.comments
@@ -141,7 +149,16 @@ export async function endWeekLogic(handler : dataUpdateHandler, dateRange : Date
         `Week__${new Date(dateRange.dateToStartFrom.getTime() - (dateRange.weeksToConsider * WEEK)).toDateString()}-${dateRange.dateToStartFrom.toDateString()}.csv`)
 }
 
-export default async function (handler : dataUpdateHandler, dateRange : DateRange, onLeaveHandler : onLeaveExtraExclusionCriteria, message : Message) {
+//
+/**
+ * @author Lewis Page
+ * @description Handles the creation of reports when a `$week` style command is invoked.
+ * @param handler A callback function, containing the logic for how data should be handled when scanned in the activity report.
+ * @param dateRange How many weeks to consider in the report, and what UNIX Timecode to start counting from.
+ * @param onLeaveHandler A lambda function, which inputs the considered On Leave record and report date, and outputs if they should be excluded from the report.
+ * @param message The Discord Message, sent.
+ */
+export default async function endWeekCommandController(handler : dataUpdateHandler, dateRange : DateRange, onLeaveHandler : onLeaveExtraExclusionCriteria, message : Message) {
     const file = await endWeekLogic(handler, dateRange, onLeaveHandler)
     await message.reply({files: [file]})
 }

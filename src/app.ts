@@ -12,6 +12,7 @@ import liveRoleUpdater from "./controllers/interval/liveRoleUpdater";
 import removeNewRole from "./controllers/interval/removeNewRole";
 import autoWeekEnd from "./controllers/interval/autoWeekEnd";
 import createSlashCommands from "./routes/createSlashCommands";
+import config from "./functions/models/config";
 
 const intervalManager = new IntervalManager([]);
 
@@ -21,8 +22,8 @@ client.on('ready', async () => {
     if(process.argv.length > 2 && process.argv[2] === "slashcommand_setup") await createSlashCommands();
 
     console.log(`The bot is readied`)
-    if(!(await database.expressConfig.count()))
-        await database.expressConfig.create({data: {latestDate: new Date(0)}})
+    if(!(await database.calendarConfig.findFirst({where: {serverId: config.server_id}})))
+        await database.calendarConfig.create({data: {latestDate: new Date(0), serverId: config.server_id}})
     catchup()
 
     intervalManager.addInstance(liveRoleUpdater, removeNewRole, autoWeekEnd)

@@ -6,9 +6,15 @@ import config from "../../functions/models/config";
 import fs from "fs/promises"
 import rootDir from "../../functions/util/rootDir";
 
+/**
+ * @author Lewis Page
+ * @description Shows every member who is in the database and not the server, vice versa. Invoked with `$dev crossref`
+ * @param message The Discord Message
+ * @returns A message reply promise or undefined
+ */
 export default async function(message : Message){
     const discordMembers = (await client.guilds.fetch(config.server_id)).members.cache
-    const databaseMembers = await database.members.findMany()
+    const databaseMembers = await database.members.findMany({where: {serverId: config.server_id}})
 
     const notInDatabase = discordMembers.map(member => {return {name: member.user.username, id: member.id}}).filter(member => {
         for(let databaseMember of databaseMembers){

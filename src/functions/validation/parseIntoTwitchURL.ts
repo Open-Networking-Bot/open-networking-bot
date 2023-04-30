@@ -3,7 +3,13 @@ import database from "../core/database"
 import messages from "../models/messages"
 import ErrorMonad from "../models/ErrorMonad";
 
-export default async function(inputString : string) : Promise<ErrorMonad<string>>{
+/**
+ * @author Lewis Page
+ * @description Parses a string into a Twitch Username, if possible.
+ * @param inputString The Discord ID or Twitch URL of the streamer.
+ * @returns An Error Monad, containing either an error of the parsed Twitch Username.
+ */
+export default async function parseIntoTwitchUrl(inputString : string) : Promise<ErrorMonad<string>>{
     // Get the data from the content
     const userParsed = parseMentionedUser(inputString)
 

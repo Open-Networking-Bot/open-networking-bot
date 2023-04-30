@@ -8,6 +8,12 @@ import client from "../../functions/core/serverInit";
 import { endWeekLogic } from "../weekEnd/endWeek";
 import weekEnd, { weekEndOnLeaveHandler } from "../weekEnd/weekEnd";
 
+/**
+ * @namespace
+ * @author Lewis Page
+ * @name Auto_Week_End
+ * @description Contains the information, regarding automatically creating reports every monday.
+ */
 export default {
     name: AUTO_WEEK_END,
     interval: setInterval(async ()=>{

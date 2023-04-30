@@ -1,5 +1,6 @@
 import { Message } from "discord.js";
 import database from "../../functions/core/database";
+import config from "../../functions/models/config";
 import messages from "../../functions/models/messages";
 import parseMentionedUser from "../../functions/validation/parseMentionedUser";
 import requireContentLengthOf from "../../functions/validation/requireContentLengthOf";
@@ -20,11 +21,11 @@ export default async function forgiveOnLeaveRecord(message : Message, content : 
     const memberId = parseMentionedUser(content[2])
 
     // Find the member in the database. If they cannot be found, return an error message.
-    const member = await database.members.findFirst({where: {discordID: memberId}})
+    const member = await database.members.findFirst({where: {discordID: memberId, serverId: config.server_id}})
     if(!member) return message.reply(messages.no_user)
 
     // Delete the OnLeave record. If no record can be found, return an error message.
-    const deletedRecords = await database.onLeave.deleteMany({where: {membersId: member.id}})
+    const deletedRecords = await database.onLeave.deleteMany({where: {membersId: member.id, serverId: config.server_id}})
     if(deletedRecords.count < 1) return message.reply(messages.no_onleave_record)
 
     // Return a success message.

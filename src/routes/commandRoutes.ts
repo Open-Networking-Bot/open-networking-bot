@@ -14,14 +14,14 @@ import ping from "../controllers/misc/ping";
 import restart from "../controllers/misc/restart";
 import livemembers from "../controllers/public/livemembers";
 import progress from "../controllers/public/progress";
-import add from "../controllers/raids/add";
-import attendance from "../controllers/raids/attendance";
-import award from "../controllers/raids/award";
-import goto from "../controllers/raids/goingToStreamers/goto";
-import { raidAttendanceHistory, raidedHistory } from "../controllers/raids/history";
-import raidList from "../controllers/raids/list";
-import message from "../controllers/raids/message";
-import remove from "../controllers/raids/remove";
+import add from "../controllers/events/add";
+import attendance from "../controllers/events/attendance";
+import award from "../controllers/events/award";
+import goto from "../controllers/events/goingToStreamers/goto";
+import { eventAttendanceHistory, visitedHistory } from "../controllers/events/history";
+import eventList from "../controllers/events/list";
+import message from "../controllers/events/message";
+import remove from "../controllers/events/remove";
 import catchup from "../controllers/supported/catchup";
 import calendarLock from "../controllers/supported/calendarLock";
 import manualAddition from "../controllers/supported/manualAddition";
@@ -46,12 +46,12 @@ import crossref from "../controllers/dev/crossref";
 import forgiveOnLeaveRecord from "../controllers/onLeave/forgive";
 import { removeOnLeave } from "../controllers/onLeave/removeOnLeave";
 
-async function raidHistory(message : Message, content : string[]){
+async function eventHistory(message : Message, content : string[]){
     if(await requireContentLengthOf(message,content,3)) return;
     switch(content[2]){
-        case "attendance": await raidAttendanceHistory(message,content); break;
-        case "raided": await raidedHistory(message, content); break;
-        default: await message.reply({content: messages.raid_history_invalid_type}); break;
+        case "attendance": await eventAttendanceHistory(message,content); break;
+        case "visited": await visitedHistory(message, content); break;
+        default: await message.reply({content: messages.event_history_invalid_type}); break;
     }
 }
 
@@ -67,15 +67,15 @@ const UNCATEGORIZED_LEGACY_COMMANDS = [
     new CommandController("LINK", new Monad<callback, legacyCallback>(undefined, memberLink)),
 ]
 
-const RAID_LEGACY_COMMANDS = [
-    new CommandController("RAID_LIST", new Monad<callback, legacyCallback>(undefined, raidList)),
-    new CommandController("RAID_ATTENDANCE", new Monad<callback, legacyCallback>(undefined, attendance)),
-    new CommandController("RAID_ADD", new Monad<callback, legacyCallback>(undefined, add)),
-    new CommandController("RAID_AWARD", new Monad<callback, legacyCallback>(undefined, award)),
-    new CommandController("RAID_REMOVE", new Monad<callback, legacyCallback>(undefined, remove)),
-    new CommandController("RAID_GOTO", new Monad<callback, legacyCallback>(undefined, goto)),
-    new CommandController("RAID_HISTORY", new Monad<callback, legacyCallback>(undefined, raidHistory)),
-    new CommandController("RAID_MESSAGE", new Monad<callback, legacyCallback>(undefined, message)),
+const EVENT_LEGACY_COMMANDS = [
+    new CommandController("EVENT_LIST", new Monad<callback, legacyCallback>(undefined, eventList)),
+    new CommandController("EVENT_ATTENDANCE", new Monad<callback, legacyCallback>(undefined, attendance)),
+    new CommandController("EVENT_ADD", new Monad<callback, legacyCallback>(undefined, add)),
+    new CommandController("EVENT_AWARD", new Monad<callback, legacyCallback>(undefined, award)),
+    new CommandController("EVENT_REMOVE", new Monad<callback, legacyCallback>(undefined, remove)),
+    new CommandController("EVENT_GOTO", new Monad<callback, legacyCallback>(undefined, goto)),
+    new CommandController("EVENT_HISTORY", new Monad<callback, legacyCallback>(undefined, eventHistory)),
+    new CommandController("EVENT_MESSAGE", new Monad<callback, legacyCallback>(undefined, message)),
 ]
 
 const WEEK_LEGACY_COMMANDS = [
@@ -134,7 +134,7 @@ const ONLEAVE_LEGACY_COMMANDS = [
 
 export default [
     ...UNCATEGORIZED_LEGACY_COMMANDS,
-    ...RAID_LEGACY_COMMANDS,
+    ...EVENT_LEGACY_COMMANDS,
     ...WEEK_LEGACY_COMMANDS,
     ...USER_LEGACY_COMMANDS,
     ...CALENDAR_LEGACY_COMMANDS,

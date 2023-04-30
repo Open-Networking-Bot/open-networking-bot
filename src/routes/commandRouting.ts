@@ -10,6 +10,11 @@ import analyseCommand, { CommandOptionErrorResponse } from "./createCommandOptio
 import handleLegacyRoute from "./handleLegacyRoute";
 import AbstractedCommand from "./models/AbstractedCommand";
 
+/**
+ * @typedef
+ * @author Lewis Page
+ * @description Contains an abstracted command before population. Contains an error response, showing the command validity.
+ */
 type brokenAbstractedCommand = {
     reply : (message : any) => any,
     command : string,
@@ -17,7 +22,7 @@ type brokenAbstractedCommand = {
 }
 
 /**
- * @author Lewis page
+ * @author Lewis Page
  * @description Handles routing interactions and messages to the appropriate bot controller.
  * @param route A monad, containing either the interaction to trigger routing, or the message that was sent.
  * @returns A promise, containing what the bot has done in response.

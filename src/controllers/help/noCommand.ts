@@ -2,7 +2,17 @@ import { Message } from "discord.js";
 import config from "../../functions/models/config";
 import helpCommands, { IDescribable } from "../../functions/features/helpCommands";
 
-export default async function (
+/**
+ * @author Lewis Page
+ * @description handles if someone inputs an invalid command.
+ * @param message The Discord Message, recieved.
+ * @param content The Message content, split by spaces.
+ * @param commandPrefix The prefix currently being used by commands.
+ * @param scanningLocations What command categories to reference.
+ * @param excludeNumbers If a command has a number in, for example `$24`, it should be ignored.
+ * @returns A reply promise.
+ */
+export default async function noCommand(
         message : Message,
         content : string, 
         commandPrefix = config.bot_command_character, 

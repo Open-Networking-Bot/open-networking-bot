@@ -1,98 +1,72 @@
 # The character that needs to be inputted to trigger a command
 bot_command_character: $
-bot_version: "2.0.0 Pre-Alpha 1a"
+bot_version: "ONB Test Candidate 1.0.0"
 
-server_id: "918622625771692083"
+server_id: "%"
 
 permitted_command_channels: # What channels commands can be executed in
-  - "918622629034885197" # test
-  - "918622629034885190" # dummy
-  - "918622626715410450" # raid-attendance
-  - "918622626715410448" # mid-raid-announcements
-  - "918622626715410444" # request a slot
-  - "918622628347011122" # activity check
-  - "1006240964316254349" # Initiation
-  - "1006240307953815573" # Useful Info
-  - "918622627306827810" # Ranking
+  - "%" # Lorem Ipsum
 
-raid_message_channels: # Channels where people post that they have gone live.
-  - "918622627067736076" # Streams to support
-  - "918622627306827812" # Affiliate Live
-  - "918622627306827813" # Non-Affiliate Live
+event_message_channels: # Channels where people post that they have gone live.
+  - "%" # Lorem Ipsum
 
 # The IDs of important channels
-raid_voice_channel: "918622627067736074"
-raid_links_channel: "918622626715410451"
-who_i_supported_channel: "918622627067736077"
-express_support_channel: "918622626715410446"
-shout_out_support_channel: "1010558809707642941"
-general_channel: "918622627067736079"
-logging_channel: "966781388546252820"
-request_a_slot_channel: "1008679804402401350"
-rules_and_how_it_works_channel: "880214274746761257"
-raid_info_channel: "918622626715410449"
-support_network_info_channel: "880218685439111178"
-who_invited_me_channel: "1013109730060808303"
-report_channel: "918622629034885190"
+event_voice_channel: "%"
+event_links_channel: "%"
+who_i_supported_channel: "%"
+calendar_support_channel: "%"
+shout_out_support_channel: "%"
+general_channel: "%"
+logging_channel: "%"
+request_a_slot_channel: "%"
+rules_and_how_it_works_channel: "%"
+event_info_channel: "%"
+support_network_info_channel: "%"
+who_invited_me_channel: "%"
+report_channel: "%"
 
-# 1 = Raid, 2 = Initiation, 4 = Moderation, 8 = Express, 16 = Council, 32 = Shoutout
+# 1 = Event, 2 = Initiation, 4 = Moderation, 8 = Calendar, 16 = Admin, 32 = Shoutout
 # If someone has access to multiple categories, give them an access level equal to the numbers added together.
 command_access_roles:
-  - access_level: 63 # Council Access
-    id: "918622625956233274" # Shadow Developer
+  - access_level: 63 # Admin Access
+    id: "%" # Developer
 
-  - access_level: 63 # Council Access
-    id: "918622625985622039" # Council
-
-  - access_level: 8 # Express
-    id: "918622625985622036" # Shadow Express
-
-  - access_level: 2 # Initiation
-    id: "918622625956233272" # Welcome Squad
-
-  - access_level: 1 # Raid
-    id: "918622625956233270" # Raid Squad Captain
-
-  - access_level: 4 # Moderation
-    id: "918622625956233275" # Moderator
-
-  - access_level: 32 # Shoutout
-    id: "918622625956233268" # Shoutout Squad
+  - access_level: 63 # Admin Access
+    id: "%" # Admin
 
 
 exempt_roles: # Roles that are exempt from checks
   - ""
 
-raid_junkie_roles:
-  - "918622625985622040"
-  - "918622625985622041"
-on_leave_role: "918622626035957841"
+priority_event_roles:
+  - "%"
+on_leave_role: "%"
 
-now_live_role: "918622625985622044"
-now_live_eligibility_role: "918622625771692087"
-super_featured_role: "1024738029690159175"
-super_featured_live_role: "1024739898885935104"
-new_member_role: "1021514391549657099"
-raid_exclusion_role: "1035501684652249130"
+now_live_role: "%"
+now_live_eligibility_role: "%"
+super_featured_role: "%"
+super_featured_live_role: "%"
+new_member_role: "%"
+event_exclusion_role: "%"
 
 now_live_banned_roles:
-  - "918622625985622043"
+  - "%"
 
-minimum_points_required_per_week: 15
-minimum_points_required_for_express: 25
-minimum_express_tags_required_for_express: 2
+minimum_points_required_per_week: 1
+minimum_points_required_for_calendar: 25
+minimum_calendar_tags_required_for_calendar: 2
 
-sss_discord_id: "919243703233679391"
-sss_twitch_page_tag_multiplier: 2
+server_account_discord_id: "%"
+server_account_twitch_page_tag_multiplier: 2
 featured_member_tag_multiplier: 2
 
-maximum_express_tags: 10
-express_clamp_type: "review" # "review", "database", "none"
-express_max_slots: 18
+maximum_calendar_tags: 10
+calendar_clamp_type: "review" # "review", "database", "none"
+calendar_max_slots: 18
 
 points_awarded_for_activities:
-  raids: 5
-  express_support: 1.5
+  events: 5
+  calendar_support: 1.5
   who_I_supported: 1
   shout_out_support: 1
   invited_support: 1

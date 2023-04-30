@@ -17,59 +17,59 @@ not_a_number: ⚠️ The points awarded is not a number!
 not_a_number_tags: ⚠️ The tags stated is not a number!
 not_a_number_weeks: ⚠️ The weeks given is not a number!
 not_a_stage: ⚠️ Stages range between 0 and 3.
-no_raid_history: ⚠️ The specified user has never participated in a raid!
+no_event_history: ⚠️ The specified user has never participated in a event!
 should_not_be_a_url: ⚠️ Please do not enter your Twitch URL but instead your Twitch username
-raid_history_invalid_type: ⚠️ The second argument should either be "attendance" or "raided"
+event_history_invalid_type: ⚠️ The second argument should either be "attendance" or "evented"
 not_eligible_for_on_leave: ⚠️ You are not eligible to go on leave
 not_a_number_slot: ⚠️ The slot provided is not a number!
 not_a_slot: ⚠️ The slot provided does not exist!
-not_express_eligible: ⚠️ The member is not Express eligible. Add "force" as a third argument to the command to override this warning.
+not_calendar_eligible: ⚠️ The member is not calendar eligible. Add "force" as a third argument to the command to override this warning.
 bad_username_to_url: ⚠️ Please change your Discord username so it contains your Twitch username.
-express_slot_taken: ⚠️ The slot specified is already taken. Add "force" as a third argument to the command to override this warning.
-not_a_raid_train: ⚠️ The raid train specified isn't a real name.
+calendar_slot_taken: ⚠️ The slot specified is already taken. Add "force" as a third argument to the command to override this warning.
+not_a_event_train: ⚠️ The event train specified isn't a real name.
 not_a_table: ⚠️ No table in the database goes under that name.
 no_onleave_record: ⚠️ The specified member has never been On Leave!
 
 # Success Messages
 manual_user_addition: ✅ The specified user and their Twitch url are now inside of the database.
 manual_url_addition: ✅ The specified user now has their twitch url attached to the database.
-added_raid: ✅ The raid has now been added for the specified user(s).
+added_event: ✅ The event has now been added for the specified user(s).
 point_change: ✅ The member(s) points were changed
-raid_participation_removal: ✅ The specified user has no longer participated in the raid.
-purge: ✅ All raid and support tags from 4 weeks ago have been purged.
-person_raided: ✅ The specified streamer has been logged as raided.
+event_participation_removal: ✅ The specified user has no longer participated in the event.
+purge: ✅ All event and support tags from 4 weeks ago have been purged.
+person_visited: ✅ The specified streamer has been logged as evented.
 on_leave_roles_purged: ✅ All members who have been On Leave for over a month have had the role revoked. Please remember to remove their role reactions.
-lock_express: 🔒 The Express channel is now locked, and therefore messages can now be deleted safely.
-unlock_express: 🔓 The Express channel is now unlocked, meaning that deleting Express tags will now affect the database.
+lock_calendar: 🔒 The calendar channel is now locked, and therefore messages can now be deleted safely.
+unlock_calendar: 🔓 The calendar channel is now unlocked, meaning that deleting calendar tags will now affect the database.
 lock_request_a_slot: 🔒 The bot will now ignore Request A Slot
 unlock_request_a_slot: 🔓 The bot will now read Request A Slot
-new_express: ✅ A new Express has been started!
-added_to_express: ✅ The specified member has been added to the Express.
+new_calendar: ✅ A new calendar has been started!
+added_to_calendar: ✅ The specified member has been added to the calendar.
 deleted_slot: ✅ The slot has now been cleared.
 added_comment: ✅ The comment has been added.
 added_tags: ✅ The tags were added.
 changed_stage: ✅ The member's stage was changed.
-raid_goto_confirmation: ✅ A message has been posted in
+event_goto_confirmation: ✅ A message has been posted in
 onleave_forgiven: ✅ The member's On Leave record has been forgiven.
 
 # Specific Messages
-never_been_raided: ❗ The specified user has never been raided in or out of community!
+never_been_evented: ❗ The specified user has never been evented in or out of community!
 slot_not_taken: ❗ The slot is already free!
 shutdown: ❗ The bot has been shut down.
 restart: ❗ The bot has restarted.
-no_attendance: ❗ No raid attendance was taken.
-raid_message: |
-  <@&880214274297974868> DING! DING! it's Nearly RAID TIME! The **%** Raid Train is taking off in 20 minutes!
-  Come to Raid Voice Chat, 10 mins before the Raid starts and let's make this Raid Train EPIC!
+no_attendance: ❗ No event attendance was taken.
+event_message: |
+  <@&880214274297974868> DING! DING! it's Nearly event TIME! The **%** event Train is taking off in 20 minutes!
+  Come to event Voice Chat, 10 mins before the event starts and let's make this event Train EPIC!
 
-  Raid Rules:
-  •  NO Cursing or self-promo in the Raid Voice Channel
+  event Rules:
+  •  NO Cursing or self-promo in the event Voice Channel
   •  NO Negativity or personal remarks towards community members
-  •  NO Streaming while you're raiding
+  •  NO Streaming while you're eventing
   •  NO talking in other discord channels
-  •  Raids last 30 mins, up to an hour
-  •  We will be dropping links in the raid-links channel every 5 mins
-  •  Raid attendance is taken at the end of each 30-minute raid
+  •  events last 30 mins, up to an hour
+  •  We will be dropping links in the event-links channel every 5 mins
+  •  event attendance is taken at the end of each 30-minute event
   •  Push to talk is on but you are not required to talk or have a mic
   •  You do not have to follow, sub or donate bits to any streamers 
 

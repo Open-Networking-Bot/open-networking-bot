@@ -67,31 +67,31 @@ commands:
     access_level: null
 
 command_categories:
-  - name: raid
-    id: RAID
+  - name: event
+    id: EVENT
     desc: Handles anything relating to Raid Trains.
     access_level: 1
     commands:
       - name: list
         id: LIST
-        desc: Lists out the live members who are eligible to be raided.
+        desc: Lists out the live members who are eligible to be visited.
         args: null
         access_level: 1
 
       - name: attendance
         id: ATTENDANCE
-        desc: Adds raid attendance to every person in the raid voice channel.
+        desc: Adds event attendance to every person in the event voice channel.
         args:
           - 
             name: exclusions
             type: STRING
-            desc: The Discord IDs of members who you do not want to be counted in the raid.
+            desc: The Discord IDs of members who you do not want to be counted in the event.
             required: false
         access_level: 1
         
       - name: add
         id: ADD
-        desc: Manually adds someone to raid attendance.
+        desc: Manually adds someone to event attendance.
         args:
           - 
             name: member
@@ -101,11 +101,11 @@ command_categories:
 
       - name: award
         id: AWARD
-        desc: Changes the number of points given to someone for their most recent raid.
+        desc: Changes the number of points given to someone for their most recent event.
         args:
           -
             name: points_to_award
-            desc: The number of points to award them for the raid.
+            desc: The number of points to award them for the event.
             type: NUMBER
           - 
             name: member
@@ -115,7 +115,7 @@ command_categories:
 
       - name: remove
         id: REMOVE
-        desc: Removes a members' last raid attendance.
+        desc: Removes a members' last event attendance.
         args:
           - 
             name: member
@@ -125,7 +125,17 @@ command_categories:
 
       - name: goto
         id: GOTO
-        desc: Goes to a streamer, in a raid train.
+        desc: Goes to a streamer, in a event train.
+        args:
+          -
+            name: twitch_username
+            desc: The member's Twitch username
+            type: STRING
+        access_level: 1
+
+      - name: visited
+        id: VISITED
+        desc: Goes to a streamer, in a event train. Does not make a message.
         args:
           -
             name: twitch_username
@@ -135,11 +145,11 @@ command_categories:
         
       - name: history
         id: HISTORY
-        desc: Find out when a member last went on a raid or when someone was last raided.
+        desc: Find out when a member last went on a event or when someone was last visited.
         args:
           -
             name: history_type
-            desc: The word `attendance` or `raided`
+            desc: The word `attendance` or `visited`
             type: STRING
           - 
             name: member
@@ -149,11 +159,11 @@ command_categories:
 
       - name: message
         id: MESSAGE
-        desc: Create a raid announcement message in raid-info
+        desc: Create a event announcement message in event-info
         args:
           -
-            name: raid_name 
-            desc: The raid being participated in.
+            name: event_name 
+            desc: The event being participated in.
             type: STRING
         access_level: 1
 
