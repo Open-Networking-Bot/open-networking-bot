@@ -47,7 +47,7 @@ export async function newMemberManual(message : Message<boolean>, content : stri
         name: newMember.username, 
         discordID: newMember.id, 
         weeksOfInactivity: 0, 
-        url: url,
+        url: url.toLowerCase(),
         serverId: config.server_id
     }})
     return message.reply(messages.manual_user_addition)
@@ -79,10 +79,10 @@ export async function memberInit(message : Message<boolean>, content : string[])
             discordID: parseMentionedUser(content[2]),
             serverId: config.server_id
         },
-        data: { url: url }
+        data: { url: url.toLowerCase() }
     })
     
-    if(!!oldUrl) await autocorrectURLChange(oldUrl, url) 
+    if(!!oldUrl) await autocorrectURLChange(oldUrl, url.toLowerCase()) 
 
     return message.reply(messages.manual_url_addition)
 }
@@ -113,10 +113,10 @@ export async function memberLink(message : Message<boolean>, content : string[])
             discordID: message.author.id,
             serverId: config.server_id
         },
-        data: { url: url }
+        data: { url: url.toLowerCase() }
     })
     
-    if(!!oldUrl) await autocorrectURLChange(oldUrl, url) 
+    if(!!oldUrl) await autocorrectURLChange(oldUrl, url.toLowerCase()) 
 
     return message.react('✅')
 }

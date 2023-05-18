@@ -19,7 +19,7 @@ export default async function eventVisited(message: Message, content : string[])
 
     if(parsedPersonToRaid.IsError()) return message.reply((parsedPersonToRaid.Monad as Error).message)
 
-    await updateBeenRaidedRecord(parsedPersonToRaid.Monad as string)
+    await updateBeenRaidedRecord((parsedPersonToRaid.Monad as string).toLowerCase())
 
     // Return Response
     return message.reply({content: messages.person_visited})

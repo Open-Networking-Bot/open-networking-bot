@@ -9,10 +9,10 @@ import config from "../../../functions/models/config";
  */
 export default async function updateBeenRaidedRecord(personToRaid : string){
     // Figure out if OOC
-    const isOOC = !(await database.members.findFirst({where: {url: personToRaid, serverId: config.server_id}}))
+    const isOOC = !(await database.members.findFirst({where: {url: personToRaid.toLowerCase(), serverId: config.server_id}}))
 
     // Get Past Record
-    let beenRaidedRecord = await database.beenRaided.findFirst({where: {url: personToRaid, serverId: config.server_id}})
+    let beenRaidedRecord = await database.beenRaided.findFirst({where: {url: personToRaid.toLowerCase(), serverId: config.server_id}})
 
     // Figure out if NBR
     const isNBR = !isOOC && (!beenRaidedRecord || /OOC/.test(beenRaidedRecord.notes))
@@ -23,7 +23,7 @@ export default async function updateBeenRaidedRecord(personToRaid : string){
     // Create record if needed
     if(!beenRaidedRecord){
         beenRaidedRecord = await database.beenRaided.create({data:{
-            url: personToRaid,
+            url: personToRaid.toLowerCase(),
             lastRaid: new Date(),
             notes: notes,
             serverId: config.server_id

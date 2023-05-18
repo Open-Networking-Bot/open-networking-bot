@@ -87,14 +87,17 @@ export async function visitedHistory(message: Message, content: string[]){
 
     if(parsedPersonRaided.IsError()) return message.reply((parsedPersonRaided.Monad as Error).message)
 
+    const userUrl = (parsedPersonRaided.Monad as string).toLowerCase()
+
     // Get raid history
-    const beenRaidedHistory = await database.beenRaided.findFirst({where: {url: parsedPersonRaided.Monad as string, serverId: config.server_id}})
+    const beenRaidedHistory = await database.beenRaided.findFirst({where: {url: userUrl,
+         serverId: config.server_id}})
     if(!beenRaidedHistory){
         return message.reply({content: messages.never_been_raided})
     }
 
     // Check if in community
-    const member = await database.members.findFirst({where: {url: (parsedPersonRaided.Monad as string).toLowerCase(), serverId: config.server_id}})
+    const member = await database.members.findFirst({where: {url: userUrl, serverId: config.server_id}})
     const isOOC = !member
 
     // Create output
