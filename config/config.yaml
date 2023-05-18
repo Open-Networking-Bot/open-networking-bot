@@ -1,56 +1,58 @@
 # The character that needs to be inputted to trigger a command
 bot_command_character: $
-bot_version: "ONB Test Candidate 1.0.0"
+bot_version: "ONB Test Candidate 2.0.0"
 
 server_id: "%"
 
 permitted_command_channels: # What channels commands can be executed in
-  - "%" # Lorem Ipsum
+  - "1078426716940275773" # Commands
+  - "1078426428598648943" # Raid Attendance
 
 event_message_channels: # Channels where people post that they have gone live.
-  - "%" # Lorem Ipsum
+  - "1108661547355607052" # I Am Live
 
 # The IDs of important channels
-event_voice_channel: "%"
-event_links_channel: "%"
-who_i_supported_channel: "%"
-calendar_support_channel: "%"
-shout_out_support_channel: "%"
-general_channel: "%"
-logging_channel: "%"
-request_a_slot_channel: "%"
-rules_and_how_it_works_channel: "%"
-event_info_channel: "%"
-support_network_info_channel: "%"
-who_invited_me_channel: "%"
-report_channel: "%"
+event_voice_channel: "1078426580013039697"
+event_links_channel: "1078426613785575472"
+who_i_supported_channel: "1078426297224671404"
+calendar_support_channel: "1078426323875287040"
+shout_out_support_channel: "1078426353755488328"
+general_channel: "1078425644062474252"
+logging_channel: "1078648010898165803"
+request_a_slot_channel: "1078426697994612777"
+rules_and_how_it_works_channel: "1078648010898165801"
+event_info_channel: "1078426599361359932"
+support_network_info_channel: "1078675591701733480"
+who_invited_me_channel: "1078426378640302182"
+report_channel: "1108662222978302004"
 
 # 1 = Event, 2 = Initiation, 4 = Moderation, 8 = Calendar, 16 = Admin, 32 = Shoutout
 # If someone has access to multiple categories, give them an access level equal to the numbers added together.
 command_access_roles:
   - access_level: 63 # Admin Access
-    id: "%" # Developer
+    id: "1078633422966235156" # Developer
 
   - access_level: 63 # Admin Access
-    id: "%" # Admin
+    id: "1078633524606808075" # Admin
 
 
 exempt_roles: # Roles that are exempt from checks
-  - ""
+  - "1108662665619980342"
 
 priority_event_roles:
-  - "%"
-on_leave_role: "%"
+  - "1108662564784701511"
+on_leave_role: "1108662665619980342"
 
-now_live_role: "%"
-now_live_eligibility_role: "%"
-super_featured_role: "%"
-super_featured_live_role: "%"
-new_member_role: "%"
-event_exclusion_role: "%"
+now_live_role: "1108662525836398612"
+now_live_eligibility_role: "1078425642992934942"
+super_featured_role: "1108666805800685669"
+super_featured_live_role: "1108662564784701511"
+new_member_role: "1108662720007524373"
+event_exclusion_role: "1108662767902261269"
 
 now_live_banned_roles:
-  - "%"
+  - "1108662665619980342"
+  - "1108662767902261269"
 
 minimum_points_required_per_week: 1
 minimum_points_required_for_calendar: 25
