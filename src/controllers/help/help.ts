@@ -2,6 +2,7 @@ import { Message } from "discord.js";
 import helpCommands, { Command } from "../../functions/features/helpCommands"
 import noCommand from "./noCommand";
 import { hasNotGotRoles } from "../../functions/util/authenticate";
+import config from "../../functions/models/config";
 
 /**
  * @author Lewis Page
@@ -44,7 +45,7 @@ export default async function helpCommand(message : Message, content : string[])
     // If the £help command is ran without an argument, it will show every root command in a menu.
     if(content.length < 2) {
         const root = helpCommands.getRoot()
-        return message.reply({embeds: createReply("SSS Bot", "", (()=>{
+        return message.reply({embeds: createReply(config.bot_name, "", (()=>{
             const output : {name : string, value : string}[] = []
 
             for(let command of root) if(command.access_level === null || !hasNotGotRoles(message, command.access_level)) output.push({name: command.name, value: command.desc})

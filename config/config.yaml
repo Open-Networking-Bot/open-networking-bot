@@ -1,6 +1,7 @@
 # The character that needs to be inputted to trigger a command
 bot_command_character: $
 bot_version: "ONB Test Candidate 1.0.0"
+bot_name: "Open Networking Bot"
 
 server_id: "%"
 
