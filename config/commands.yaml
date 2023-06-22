@@ -314,7 +314,7 @@ command_categories:
             type: INTEGER
           -
             name: force
-            desc: If the member would not usually be allowed to go on the calendar, type "force" as the third argument.
+            desc: Overrides eligiblity checks for the command, when used.
             type: STRING
             required: false
           

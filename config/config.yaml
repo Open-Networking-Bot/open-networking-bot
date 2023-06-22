@@ -2,7 +2,7 @@
 bot_command_character: $
 bot_version: "ONB Test Candidate 2.0.0"
 
-server_id: "%"
+server_id: "1078425642992934942"
 
 permitted_command_channels: # What channels commands can be executed in
   - "1078426716940275773" # Commands
