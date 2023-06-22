@@ -57,7 +57,8 @@ type config = {
     now_live_banned_roles: string[],
     featured_member_tag_multiplier: number,
     bot_version: string,
-    event_exclusion_role : string
+    event_exclusion_role : string,
+    bot_name: string
 }
 
 const text = fs.readFileSync(path.join(rootDir,"config","config.yaml"), "utf-8")
