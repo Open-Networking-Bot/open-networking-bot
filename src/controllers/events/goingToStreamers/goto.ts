@@ -25,9 +25,9 @@ export default async function eventGoto(message: Message, content : string[]){
     // Update record
     const beenRaidedRecord = await updateBeenRaidedRecord(parsedPersonToRaid.Monad as string)
 
-    // Create raid link
+    // Create event link
     await (client.channels.cache.get(config.event_links_channel) as TextChannel).send
     (`https://www.twitch.tv/${beenRaidedRecord.url} ${beenRaidedRecord.notes}`)
 
-    return message.reply(messages.raid_goto_confirmation + ` <#${config.event_links_channel}>`)
+    return message.reply(messages.event_goto_confirmation + ` <#${config.event_links_channel}>`)
 }
