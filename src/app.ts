@@ -13,6 +13,7 @@ import removeNewRole from "./controllers/interval/removeNewRole";
 import autoWeekEnd from "./controllers/interval/autoWeekEnd";
 import createSlashCommands from "./routes/createSlashCommands";
 import config from "./functions/models/config";
+import rootDir from "./functions/util/rootDir";
 
 const intervalManager = new IntervalManager([]);
 
@@ -41,5 +42,5 @@ client.login(process.env.SECRET).then(async () => await createSlashCommands()).c
 
 ['exit', 'SIGTERM'].forEach(processName => process.on(processName, () => {
     saveMessageHistory()
-    fs.writeFileSync(join(__dirname, TERMINATION_DETAILS_PATH), new Date().toISOString())
+    fs.writeFileSync(join(rootDir, TERMINATION_DETAILS_PATH), new Date().toISOString())
 }))
